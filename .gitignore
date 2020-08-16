@@ -5,7 +5,7 @@
 /_site
 
 # Generated file
-/src/_includes/layouts/webpack.ejs
+/src/_includes/layouts/assets.njk
 .lazyimages.json
 
 # Misc

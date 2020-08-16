@@ -1,0 +1,39 @@
+---
+pagination:
+  data: collections.posts
+  size: 4
+  alias: list
+  reverse: true
+permalink: "{% if pagination.pageNumber > 0 %}archive/page-{{ pagination.pageNumber + 1 }}/{% endif %}index.html"
+---
+
+<h1 class="font-bold text-3xl">{{ site.title }}</h1>
+{#{% if pagination.pageNumber > 0 %}#}
+{#  {% set permalink = 'page'~(pagination.pageNumber + 1)~'/index.html' %}#}
+{#{% else %}#}
+{#    {% set permalink = 'index.html' %}#}
+{#{% endif %}#}
+{#permalink: '{{ permalink }}'#}
+{#eleventyComputed:#}
+{#  title: '<% if (pagination.pageNumber > 0) { %><%= `Page ${pagination.pageNumber + 1} | ${site.title}` %><% } else { %><%= site.title %><% } %>'#}
+{#{{ (pagination.pageNumber > 0) ? 'page'~(pagination.pageNumber + 1)~'/index.html' : 'index.html' }}#}
+
+<ul>
+  {% for post in list %}
+  <li>
+    <a href="{{ post.url }}" title="{{ post.data.title }}">{{ post.data.title }}</a>
+    - {{ post.data.date|date }}
+  </li>
+  {% endfor %}
+</ul>
+
+<div class="pt-3">
+  
+  {% if pagination.href.previous %}
+    <a href="{{ pagination.href.previous }}">Newer</a>
+  {% endif %}
+  {% if pagination.href.next %}
+    <a href="{{ pagination.href.next }}">Next</a>
+  {% endif %}
+
+</div>

@@ -1,5 +1,5 @@
 const htmlmin = require('html-minifier');
-const dateFns = require('date-fns');
+const { DateTime } = require('luxon');
 const lazyImagesPlugin = require('eleventy-plugin-lazyimages');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 
@@ -22,14 +22,40 @@ module.exports = function (eleventyConfig) {
       }
     },
   });
-
+  //
   eleventyConfig.setEjsOptions({
     rmWhitespace: true,
     context: {
-      dateFns,
       // bart
     },
   });
+
+  eleventyConfig.addFilter('json', (obj) => {
+    return JSON.stringify(obj);
+  });
+
+  eleventyConfig.addFilter('date', (dateObj, type) => {
+    let format;
+    switch (type) {
+      case 'iso':
+        return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toISO();
+        break;
+      case 'date':
+      default:
+        format = 'LLLL d, yyyy';
+        break;
+    }
+    // format = 'dd LLL yyyy';
+    return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat(format);
+  });
+  // eleventyConfig.addFilter("readableDate", dateObj => {
+  //   return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat("dd LLL yyyy");
+  // });
+  //
+  // // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
+  // eleventyConfig.addFilter('htmlDateString', (dateObj) => {
+  //   return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
+  // });
 
   eleventyConfig.setBrowserSyncConfig({
     files: './_site/assets/styles/main.css',
