@@ -5,13 +5,18 @@ layout: layouts/base.ejs
 <article class="post">
   <header>
     <h1 class="font-bold text-3xl"><%= title %></h1>
-    <div class="text-gray-600">
+    <% if (!!locals.subtitle ) { %>
+      <h2><%= subtitle %></h2>
+    <% } %>
+    <div class="author">
+      <%= site.author %><br>
       <%= this.dateFns.format(new Date(date), 'LLLL d, yyyy') %>
     </div>
   </header>
-  <section class="pt-3 pb-3">
+  <section>
     <%- content %>
   </section>
+  <hr>
   <footer>
     <a href="/">Back to home</a>
   </footer>

@@ -1,8 +1,8 @@
 {
-  "site_name": "Hello",
-  "title": "Hello personal blog",
+  "site_name": "Bart van Raaij",
+  "title": "Bart van Raaij Blog",
   "description": "Blog description",
-  "url": "https://example.com",
+  "url": "https://bartvanraaij.dev",
   "locale": "en",
-  "author": "Anonymous"
+  "author": "Bart van Raaij"
 }

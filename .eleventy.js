@@ -3,6 +3,12 @@ const dateFns = require('date-fns');
 const lazyImagesPlugin = require('eleventy-plugin-lazyimages');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 
+// const bart = {
+//   doeIets: (input) => {
+//     return input.toUpperCase();
+//   }
+// };
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight);
 
@@ -21,6 +27,7 @@ module.exports = function (eleventyConfig) {
     rmWhitespace: true,
     context: {
       dateFns,
+      // bart
     },
   });
 

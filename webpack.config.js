@@ -11,6 +11,7 @@ entries.push(path.resolve(__dirname, 'src/assets/styles/main.css'));
 
 // TODO: Remove if the blog does not need syntax highlight
 entries.push(path.resolve(__dirname, 'src/assets/styles/prism-atom-dark.css'));
+entries.push(path.resolve(__dirname, 'src/assets/styles/latex.css'));
 
 let cssFileName = 'styles/[name].css';
 
@@ -79,6 +80,10 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/i,
+        loader: 'url-loader',
       },
     ],
   },

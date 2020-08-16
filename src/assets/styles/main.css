@@ -1,8 +1,32 @@
-@tailwind base;
+/*@import '~latex.css/style.css';*/
 
-a {
-  @apply text-blue-700 underline font-bold;
+/*@import 'latex.css';*/
+
+html {
+  font-size: 17px;
 }
 
-@tailwind components;
-@tailwind utilities;
+code {
+  color: #a00;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: 500;
+}
+
+/*@tailwind base;*/
+
+/*a {*/
+/*  @apply text-blue-700 underline font-bold;*/
+/*}*/
+
+/*@tailwind components;*/
+/*@tailwind utilities;*/
+
+body {
+  max-width: 960px;
+}
+
+.post header {
+  text-align: center;
+}
