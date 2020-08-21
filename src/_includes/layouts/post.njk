@@ -1,12 +1,18 @@
 ---
 layout: layouts/base.njk
 ---
-
+<pre>
+</pre>
 <article class="post">
   <header>
-    <h1 class="font-bold text-3xl">{{ title }}</h1>
+    <h1>{{ title }}</h1>
     {% if subtitle %}
       <h2>{{ subtitle }}</h2>
+    {% endif %}
+    {% if abstract %}
+    <div class="abstract">
+      {{- abstract -}}
+    </div>
     {% endif %}
     
     <div class="author">
@@ -17,8 +23,15 @@ layout: layouts/base.njk
   <section>
     {{ content | safe }}
   </section>
-  <hr>
   <footer>
+{#    Todo #}
+{#    {% for tag in tags %}#}
+{#      {%- if collections.tagList.indexOf(tag) != -1 -%}#}
+{#      {% set tagUrl %}/tags/{{ tag }}/{% endset %}#}
+{#      <a href="{{ tagUrl | url }}" class="post-tag">{{ tag }}</a>#}
+{#      {%- endif -%}#}
+{#    {% endfor %}#}
+    
     <a href="/">Back to home</a>
   </footer>
 </article>

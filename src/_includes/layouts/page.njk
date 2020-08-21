@@ -6,8 +6,8 @@ layout: layouts/base.njk
   <header>
     <h1>{{ title }}</h1>
   </header>
-  <section class="pt-3 pb-3">
-    {{ content }}
+  <section>
+    {{ content | safe }}
   </section>
   <footer>
     <a href="/">Back to home</a>

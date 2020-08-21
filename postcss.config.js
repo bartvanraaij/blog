@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies, global-require */
 const plugins = [
   // require('tailwindcss'),
+  require('postcss-nested'),
   require('autoprefixer'),
 ];
 

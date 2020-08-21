@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" href="/favicon.ico" />
-    <title>{{ title }}</title>
+    <title>{{ title or site.title }}</title>
     <meta
       name="description"
       content="{{ description or site.description }}"
@@ -19,10 +19,11 @@
       content="{{ description or site.description }}"
     />
     <meta property="og:locale" content="{{ site.locale }}" />
-    <meta property="og:site_name" content="{{ site.site_name }}" />
-    {% if (tags == "posts") %}
+    <meta property="og:site_name" content="{{ site.name }}" />
+    {% if tags and 'post' in tags %}
     <meta property="og:type" content="article" />
     <meta property="article:published_time" content="{{ date | date('iso') }}" />
+    <link type="application/atom+xml" rel="alternate" href="{{ site.url }}/feed.xml" title="{{ site.title }}">
     <script type="application/ld+json">
       {
         "description": "{{ description }}",
@@ -41,10 +42,40 @@
     {% endif %}
     
     {% include './assets.njk' %}
-
-
+    
   </head>
   <body>
+    {% include './nav.njk' %}
+    <main class="container">
+      {% if tags and 'post' in tags %}<h1>is post</h1>{% endif %}
     {{ content | safe }}
+    </main>
+  
+    <footer id="footer" class="container">
+      <div class="inner">
+        <a href="https://twitter.com/bartvanraaij"
+           title="@bartvanraaij on Twitter"
+           rel="noopener noreferrer"
+           target="_blank"
+           class="social">
+          <img src="/assets/images/twitter.svg" alt="Twitter Logo" />
+        </a>
+        <a href="https://www.linkedin.com/in/bartvanraaij/"
+           title="bartvanraaij on LinkedIn"
+           rel="noopener noreferrer" target="_blank" class="social">
+          <img src="/assets/images/linkedin.svg" alt="LinkedIn Logo" />
+        </a>
+        <a href="https://github.com/bartvanraaij"
+           title="bartvanraaij on GitHub"
+           rel="noopener noreferrer" target="_blank" class="social">
+          <img src="/assets/images/github.svg" alt="GitHub Logo" />
+        </a>
+        <a href="{{ site.url }}/feed.xml"
+           title="bartvanraaij.dev atom feed"
+           rel="noopener noreferrer" target="_blank" class="social">
+          <img src="/assets/images/rss.svg" alt="RSS Icon" />
+        </a>
+      </div>
+    </footer>
   </body>
 </html>

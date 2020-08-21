@@ -1,8 +1,9 @@
 {
-  "site_name": "Bart van Raaij",
-  "title": "Bart van Raaij Blog",
+  "name": "Bart van Raaij",
+  "title": "Bart van Raaij’s Blog",
   "description": "Blog description",
   "url": "https://bartvanraaij.dev",
   "locale": "en",
-  "author": "Bart van Raaij"
+  "author": "Bart van Raaij",
+  "email": "info@bartvanraaij.nl"
 }

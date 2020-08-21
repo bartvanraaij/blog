@@ -1,13 +1,15 @@
 ---
 pagination:
-  data: collections.posts
-  size: 4
+  data: collections.post
+  size: 8
   alias: list
   reverse: true
-permalink: "{% if pagination.pageNumber > 0 %}archive/page-{{ pagination.pageNumber + 1 }}/{% endif %}index.html"
+permalink: "archive/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 }}.html{% else %}index.html{% endif %}"
+eleventyComputed:
+  title: "Posts archive - page {{ pagination.pageNumber+1 }}"
 ---
 
-<h1 class="font-bold text-3xl">{{ site.title }}</h1>
+<h1>{{ site.title }}</h1>
 {#{% if pagination.pageNumber > 0 %}#}
 {#  {% set permalink = 'page'~(pagination.pageNumber + 1)~'/index.html' %}#}
 {#{% else %}#}
@@ -27,13 +29,14 @@ permalink: "{% if pagination.pageNumber > 0 %}archive/page-{{ pagination.pageNum
   {% endfor %}
 </ul>
 
-<div class="pt-3">
+<div>
   
   {% if pagination.href.previous %}
     <a href="{{ pagination.href.previous }}">Newer</a>
   {% endif %}
   {% if pagination.href.next %}
-    <a href="{{ pagination.href.next }}">Next</a>
+    <a href="{{ pagination.href.next }}">Older</a>
   {% endif %}
 
+  <a href="/">Home</a>
 </div>

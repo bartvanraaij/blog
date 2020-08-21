@@ -1,7 +1,9 @@
 ---
 title: 'Eleventy Starter Boilerplate Presentation'
+abstract: 'Did something happen heren or ?'
 description: Everything you need to use this Eleventy Boilerplate template
 date: 2020-01-01 00:00:00
+tags: ['eleventy','test']
 ---
 
 # Eleventy Starter Boilerplate
@@ -90,7 +92,7 @@ Open http://localhost:8080 with your favorite browser to see your blog.
     └── posts          # Your blog posts
 ```
 
-### Customization
+## Customization
 
 You can easily configure Eleventy Starter Boilerplate. Please change the following file:
 
