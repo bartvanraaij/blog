@@ -274,3 +274,17 @@ ul.postlist {
   }
 
 }
+
+
+@media print {
+  nav, footer {
+    display: none;
+  }
+  body {
+    background-color: transparent;
+  }
+    :root {
+    --black: #000;
+  }
+
+}
