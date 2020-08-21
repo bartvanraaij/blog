@@ -1,5 +1,6 @@
 ---
 title: 'My forth post'
+subtitle: 'This is my subtitle'
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 date: 2020-07-07 00:00:00
 ---

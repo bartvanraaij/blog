@@ -1,4 +1,4 @@
-const glob = require('glob');
+// const glob = require('glob');
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -6,10 +6,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 
-const entries = glob.sync(
-  path.resolve(__dirname, 'src/assets/images/posts/*.{png,gif,jpg,jpeg,svg}'),
-);
+// const entries = glob.sync(
+//   path.resolve(__dirname, 'src/assets/images/posts/*.{png,gif,jpg,jpeg,svg}'),
+// );
 
+const entries = [];
 // TODO: Remove if the blog does not need syntax highlight
 entries.push(path.resolve(__dirname, 'src/assets/styles/prism-atom-dark.css'));
 entries.push(path.resolve(__dirname, 'src/assets/styles/latex.css'));
@@ -30,7 +31,10 @@ module.exports = {
   },
   plugins: [
     new CopyWebpackPlugin({
-      patterns: [{ from: path.resolve(__dirname, 'public'), to: path.resolve(__dirname, '_site') }],
+      patterns: [
+        { from: path.resolve(__dirname, 'assets'), to: path.resolve(__dirname, '_site/assets') },
+        { from: path.resolve(__dirname, 'public'), to: path.resolve(__dirname, '_site') },
+      ],
     }),
     new webpack.HashedModuleIdsPlugin(),
     new FixStyleOnlyEntriesPlugin({

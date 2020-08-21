@@ -1,10 +1,10 @@
 const htmlmin = require('html-minifier');
 const { DateTime } = require('luxon');
-const lazyImagesPlugin = require('eleventy-plugin-lazyimages');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
+const pluginRss = require('@11ty/eleventy-plugin-rss');
 const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
-const pluginRss = require('@11ty/eleventy-plugin-rss');
+const markdownItLazyImg = require('markdown-it-image-lazy-loading');
 
 // const bart = {
 //   doeIets: (input) => {
@@ -16,17 +16,17 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(pluginRss);
 
-  eleventyConfig.addPlugin(lazyImagesPlugin, {
-    transformImgPath: (imgPath) => {
-      if (imgPath.startsWith('http://') || imgPath.startsWith('https://')) {
-        // Handle remote file
-        return imgPath;
-      } else {
-        return `./src/${imgPath}`;
-      }
-    },
-  });
-  //
+  // eleventyConfig.addPlugin(lazyImagesPlugin, {
+  //   transformImgPath: (imgPath) => {
+  //     if (imgPath.startsWith('http://') || imgPath.startsWith('https://')) {
+  //       // Handle remote file
+  //       return imgPath;
+  //     } else {
+  //       return `./src/${imgPath}`;
+  //     }
+  //   },
+  // });
+
   eleventyConfig.setEjsOptions({
     rmWhitespace: true,
     context: {
@@ -42,7 +42,7 @@ module.exports = function (eleventyConfig) {
     let format;
     switch (type) {
       case 'iso':
-        return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toISO();
+        return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toISODate();
         break;
       case 'date':
       default:
@@ -94,13 +94,15 @@ module.exports = function (eleventyConfig) {
     html: true,
     breaks: true,
     linkify: true,
-  }).use(markdownItAnchor, {
-    permalink: true,
-    permalinkClass: 'anchor',
-    permalinkSymbol: '#',
-    permalinkBefore: true,
-    level: 2,
-  });
+  })
+    .use(markdownItAnchor, {
+      permalink: true,
+      permalinkClass: 'anchor',
+      permalinkSymbol: '#',
+      permalinkBefore: true,
+      level: 2,
+    })
+    .use(markdownItLazyImg);
   eleventyConfig.setLibrary('md', markdownLibrary);
 
   eleventyConfig.addCollection('tagList', function (collection) {

@@ -9,11 +9,18 @@ permalink: index.html
 {% set latestPosts = collections.post | reverse | head(homeBatchSize) %}
 {% set postsCount = collections.post | length %}
 
-<ul>
+<ul class="postlist" itemscope itemtype="http://schema.org/Blog">
   {% for post in latestPosts %}
-  <li>
-    <a href="{{ post.url }}" title="{{ post.data.title }}">{{ post.data.title }}</a>
-    - {{ post.data.date|date }}
+  <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
+    <a href="{{ post.url }}" title="{{ post.data.title }}">
+      <meta itemprop="url" content="{{ site.url~post.url }}" />
+      {% if post.data.image %}
+      <meta itemprop="image" content="{{ site.url~'/assets/images/posts/'~post.data.image }}" />
+      {% endif %}
+      <time class="date" datetime="{{ post.data.date|date('iso') }}" itemprop="datePublished">{{ post.data.date|date }}</time>
+      <div class="title" itemprop="headline">{{ post.data.title }}</div>
+      <div class="excerpt" itemprop="abstract">{{ post.data.abstract }}</div>
+    </a>
   </li>
   {% endfor %}
 </ul>
