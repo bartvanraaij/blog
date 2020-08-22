@@ -27,12 +27,12 @@ module.exports = function (eleventyConfig) {
   //   },
   // });
 
-  eleventyConfig.setEjsOptions({
-    rmWhitespace: true,
-    context: {
-      // bart
-    },
-  });
+  // eleventyConfig.setEjsOptions({
+  //   rmWhitespace: true,
+  //   context: {
+  //     // bart
+  //   },
+  // });
   //
   // eleventyConfig.addFilter('json', (obj) => {
   //   return JSON.stringify(obj);

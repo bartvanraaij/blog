@@ -4,9 +4,10 @@
   //--red: #a00;
   --black: #2b2d2f;
   //--primary: #1c4e6c;
-  --primary: #1c4e6c;
-  --secondary: #137f72;
-  --secondary-hover: #086156;
+  --primary: #165e89;
+  --primary-hover: #1c4e6c;
+  //--secondary: #137f72;
+  //--secondary-hover: #086156;
   --tertiary: #ff335f;
   --grey: #b1b7bd;
 }
@@ -20,8 +21,10 @@ body {
   margin: 0;
   width: 100%; height: 100%;
   max-width: 100%;
-  background-color: #f6f8f8;
+  //background-color: #f6f8f8;
   color: var(--black);
+
+  //text-rendering: initial;
 }
 
 main {
@@ -102,6 +105,11 @@ h2,h3,h4,h5,h6 {
 h3 {
   margin-top: 2rem;
 }
+
+code, pre, kbd {
+  font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',monospace!important;
+}
+
 :not(pre)>code {
   color: var(--tertiary);
   background-color: #f6f6f9;
@@ -109,16 +117,16 @@ h3 {
   font-size: 13px;
   border-radius: 3px;
   padding: 2px 3px;
-  font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
+  //font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
 }
 a, a:visited {
-  color: var(--secondary);
+  color: var(--primary);
 }
 a:hover, a:focus {
-  color: var(--secondary-hover);
+  color: var(--primary-hover);
 }
 a:focus {
-  outline: 2px solid var(--secondary-hover);
+  outline: 2px solid var(--primary);
 }
 p {
   text-align: left;
@@ -169,6 +177,10 @@ hr {
     margin-bottom: 1rem;
   }
 
+  h1,h2,h3,h4,h5,h6 {
+    line-height: 1.4;
+  }
+
   h1 + h2 {
     margin-top: 1rem;
   }
@@ -198,8 +210,15 @@ ul {
 }
 
 .social {
-  img {
+  display: inline-block;
+  img,svg {
     width: 24px;
+    display: block
+  }
+  &:hover {
+    svg path {
+      fill: var(--primary);
+    }
   }
 }
 
@@ -245,7 +264,7 @@ ul.postlist {
       display: block;
       width: 100%;
       //border-radius: 4px;
-      padding: .5rem;
+      padding: .5rem 0;
       text-decoration: none;
       color: var(--black);
 
@@ -261,9 +280,7 @@ ul.postlist {
       }
 
       &:hover {
-        .title {
-          color: var(--secondary);
-        }
+          color: var(--primary);
       }
       &:focus {
         outline-offset: -1px;
@@ -286,5 +303,13 @@ ul.postlist {
     :root {
     --black: #000;
   }
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
 
+}
+
+.post header {
+  margin-bottom: 2rem;
 }

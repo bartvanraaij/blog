@@ -46,15 +46,48 @@ Production-ready in mind:
 
 - Node.js and npm
 
-### Premium Themes
+### Code
+```php
+<?php
+declare(strict_types=1);
 
-| [Blue Dark Eleventy Theme](https://creativedesignsguru.com/blue-dark-eleventy-theme/) | [Blue Eclatant Eleventy Theme](https://creativedesignsguru.com/blue-eclatant-eleventy-theme/) |
-| --- | --- |
-| [![Blue Dark Eleventy Theme premium](https://creativedesignsguru.com/assets/images/themes/blue-dark-mode-eleventy-theme-homepage-xs.png)](https://creativedesignsguru.com/blue-dark-eleventy-theme/) | [![Blue Eclatant Eleventy Theme premium](https://creativedesignsguru.com/assets/images/themes/eclatant-blue-eleventy-theme-homepage-xs.png)](https://creativedesignsguru.com/blue-eclatant-eleventy-theme/) |
+namespace App\Users\Registration;
 
-| [Blue Modern Eleventy Theme](https://creativedesignsguru.com/blue-modern-eleventy-theme/) | [Blue Minimalist Eleventy Theme](https://creativedesignsguru.com/blue-minimalist-eleventy-theme/) |
-| --- | --- |
-| [![Blue Modern Eleventy Theme premium](https://creativedesignsguru.com/assets/images/themes/modern-blue-eleventy-theme-homepage-xs.png)](https://creativedesignsguru.com/blue-modern-eleventy-theme/) | [![Blue Minimalist Eleventy Theme premium](https://creativedesignsguru.com/assets/images/themes/minimalist-blue-eleventy-theme-homepage-xs.png)](https://creativedesignsguru.com/blue-minimalist-eleventy-theme/) |
+final class Register
+{
+    /* ... */
+
+    public function __invoke(Request $request): Response
+    {
+        // Form or data handling from the request
+        $user = new User();
+        /* ... */
+
+        // Save the new user
+        /* ... */
+
+        // Secondary flow: Notify the user
+        $email = (new Email())
+            /* ... */
+            ->to($user->getEmail())
+            ->subject('Welcome to our application!')
+            ->text('Some info about our services here!')
+            ->html('<p>Some fancier info about our services here!</p>');
+        $this->mailer->send($email);
+
+        // Secondary flow: Notify the admins
+        $email = (new Email())
+            /* ... */
+            ->subject('New user!')
+            ->text('Some info about the newly registered user here!')
+            ->html('<p>Some fancier info about the newly registered user here!</p>');
+        $this->mailer->send($email);
+
+        // Create a response
+        return new Response(/* ... */);
+    }
+}
+```
 
 ### Getting started
 

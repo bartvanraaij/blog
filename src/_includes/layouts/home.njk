@@ -1,8 +1,9 @@
 ---
-permalink: index.html
+layout: layouts/base.njk
 ---
+{{ content | safe }}
 
-<h1>{{ site.title }}</h1>
+{#<h1>{{ site.title }}</h1>#}
 
 {% set homeBatchSize = 12 %}
 

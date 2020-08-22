@@ -9,7 +9,7 @@
     <meta name="author" content="{{ site.author }}" />
 {#    {% include './meta.njk' %}#}
     {% include './assets.njk' %}
-    <link type="application/atom+xml" rel="alternate" href="{{ site.url }}/feed.xml" title="{{ site.title }} feed">
+    <link type="application/atom+xml" rel="alternate" href="{{ site.url }}/feed.xml" title="{{ site.title }}'s feed">
   </head>
   <body>
     {% include './nav.njk' %}
@@ -19,28 +19,7 @@
   
     <footer id="footer" class="container">
       <div class="inner">
-        <a href="https://twitter.com/bartvanraaij"
-           title="@bartvanraaij on Twitter"
-           rel="noopener"
-           target="_blank"
-           class="social">
-          <img src="/assets/images/twitter.svg" alt="Twitter Logo" />
-        </a>
-        <a href="https://www.linkedin.com/in/bartvanraaij/"
-           title="bartvanraaij on LinkedIn"
-           rel="noopener" target="_blank" class="social">
-          <img src="/assets/images/linkedin.svg" alt="LinkedIn Logo" />
-        </a>
-        <a href="https://github.com/bartvanraaij"
-           title="bartvanraaij on GitHub"
-           rel="noopener" target="_blank" class="social">
-          <img src="/assets/images/github.svg" alt="GitHub Logo" />
-        </a>
-        <a href="{{ site.url }}/feed.xml"
-           title="bartvanraaij.dev atom feed"
-           rel="noopener" target="_blank" class="social">
-          <img src="/assets/images/rss.svg" alt="RSS Icon" />
-        </a>
+        {% include './social.njk' %}
       </div>
     </footer>
   </body>
