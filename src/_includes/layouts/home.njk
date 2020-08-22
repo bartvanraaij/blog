@@ -3,12 +3,14 @@ layout: layouts/base.njk
 ---
 {{ content | safe }}
 
-{#<h1>{{ site.title }}</h1>#}
-
 {% set homeBatchSize = 12 %}
 
 {% set latestPosts = collections.post | reverse | head(homeBatchSize) %}
 {% set postsCount = collections.post | length %}
+
+{% if postsCount == 0 %}
+  <p><em>It seems like I haven't written anything yet! Please check back later :-).</em></p>
+{% endif %}
 
 <ul class="postlist" itemscope itemtype="http://schema.org/Blog">
   {% for post in latestPosts %}
@@ -18,7 +20,7 @@ layout: layouts/base.njk
       {% if post.data.image %}
       <meta itemprop="image" content="{{ site.url~'/assets/images/posts/'~post.data.image }}" />
       {% endif %}
-      <time class="date" datetime="{{ post.data.date|date('iso') }}" itemprop="datePublished">{{ post.data.date|date }}</time>
+      <time class="date" datetime="{{ post.date|date('iso') }}" itemprop="datePublished">{{ post.date|date }}</time>
       <div class="title" itemprop="headline">{{ post.data.title }}</div>
       <div class="excerpt" itemprop="abstract">{{ post.data.abstract }}</div>
     </a>

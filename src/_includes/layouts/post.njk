@@ -1,6 +1,7 @@
 ---
 layout: layouts/base.njk
 ---
+{{ page|dump }}
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <meta itemprop="description" content="{{ description }}" />
   <meta itemprop="name" content="{{ title }}" />
@@ -18,7 +19,7 @@ layout: layouts/base.njk
     
     <div class="author">
       <span itemprop="author">{{ site.author }}</span><br/>
-      <time datetime="{{ date|date('iso') }}" itemprop="datePublished">{{ date|date }}</time>
+      <time datetime="{{ page.date|date('iso') }}" itemprop="datePublished">{{ page.date|date }}</time>
     </div>
   
   </header>
@@ -34,6 +35,6 @@ layout: layouts/base.njk
 {#      {%- endif -%}#}
 {#    {% endfor %}#}
     
-    <a href="/">Back to home</a>
+    <a href="/">Back to home</a>.
   </footer>
 </article>
