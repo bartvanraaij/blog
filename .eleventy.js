@@ -123,6 +123,7 @@ module.exports = function (eleventyConfig) {
   });
 
   return {
+    pathPrefix: '/',
     dir: {
       input: 'src',
       output: '_site',

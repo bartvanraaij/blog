@@ -23,7 +23,7 @@ eleventyComputed:
 <ul>
   {% for post in list %}
   <li>
-    <a href="{{ post.url }}" title="{{ post.data.title }}">{{ post.data.title }}</a>
+    <a href="{{ post.url|url }}" title="{{ post.data.title }}">{{ post.data.title }}</a>
     - {{ post.data.date|date }}
   </li>
   {% endfor %}

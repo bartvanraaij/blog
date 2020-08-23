@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <base href="{{ '/'|url }}">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -9,7 +10,7 @@
     <meta name="author" content="{{ site.author }}" />
 {#    {% include './meta.njk' %}#}
     {% include './assets.njk' %}
-    <link type="application/atom+xml" rel="alternate" href="{{ site.url }}/feed.xml" title="{{ site.title }}'s feed">
+    <link type="application/atom+xml" rel="alternate" href="{{  '/feed.xml' |url }}" title="{{ site.title }}'s feed">
   </head>
   <body>
     {% include './nav.njk' %}

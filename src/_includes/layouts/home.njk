@@ -15,10 +15,10 @@ layout: layouts/base.njk
 <ul class="postlist" itemscope itemtype="http://schema.org/Blog">
   {% for post in latestPosts %}
   <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
-    <a href="{{ post.url }}" title="{{ post.data.title }}">
-      <meta itemprop="url" content="{{ site.url~post.url }}" />
+    <a href="{{ post.url|url }}" title="{{ post.data.title }}">
+      <meta itemprop="url" content="{{ post.url|url }}" />
       {% if post.data.image %}
-      <meta itemprop="image" content="{{ site.url~'/assets/images/posts/'~post.data.image }}" />
+      <meta itemprop="image" content="{{ ('/assets/images/posts/'~post.data.image) | url }}" />
       {% endif %}
       <time class="date" datetime="{{ post.date|date('iso') }}" itemprop="datePublished">{{ post.date|date }}</time>
       <div class="title" itemprop="headline">{{ post.data.title }}</div>
