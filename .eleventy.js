@@ -63,6 +63,7 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.setBrowserSyncConfig({
     files: './_site/assets/styles/main.css',
+    ghostMode: false,
   });
 
   // Get the first `n` elements of a collection.
