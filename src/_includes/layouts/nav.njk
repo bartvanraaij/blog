@@ -1,10 +1,20 @@
-<nav class="container">
+<div id="header" class="container">
   <div class="inner">
     <a id="author" href="{{ '/'|url }}" title="{{ site.author }}">
       <img src="{{ '/assets/images/bart.jpg'|url }}" srcset="{{'/assets/images/bart@2x.jpg'|url}} 2x" alt="Bart van Raaij" width="48" height="48" />
       <span>{{ site.author }}</span>
     </a>
-    <a href="{{ '/about/'|url }}" title="About">About</a>
+    
+    {#<button class="hamburger hamburger--boring" type="button" aria-label="Menu" aria-controls="navigation">#}
+    {#  <span class="hamburger-box">#}
+    {#    <span class="hamburger-inner"></span>#}
+    {#  </span>#}
+    {#</button>#}
+    
+    {#<nav id="menu">#}
+    
+    {#</nav>#}
+    <a id="about" href="{{ '/about/'|url }}" title="About">About</a>
     
     
     {#<nav id="nav">#}
@@ -16,4 +26,4 @@
     {#  </ul>#}
     {#</nav>#}
   </div>
-</nav>
+</div>
