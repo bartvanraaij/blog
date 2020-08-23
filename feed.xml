@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>Bart van Raaij’s blog</title>
-    <subtitle>Bart van Raaijj’s blog about web development and other tech stuff.</subtitle>
+    <subtitle>Bart van Raaij’s blog about web development and other tech stuff.</subtitle>
     <link href="https://bartvanraaij.dev/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://bartvanraaij.dev" rel="alternate" type="text/html"/>
     
-    <updated>2020-08-23T15:22:59+00:00</updated>
+    <updated>2020-08-23T17:56:49+00:00</updated>
     
     <id>https://bartvanraaij.dev/</id>
     <author>
@@ -15,7 +15,7 @@
         <entry>
             <title>Testpost</title>
             <link href="https://bartvanraaij.dev/test/"/>
-            <updated>2020-08-23T15:22:59+00:00</updated>
+            <updated>2020-08-23T17:56:49+00:00</updated>
             <id>https://bartvanraaij.dev/test/</id>
             <content type="html"><![CDATA[
                 <h1>hoi test</h1>
