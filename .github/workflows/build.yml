@@ -16,12 +16,7 @@ jobs:
         with:
           node-version: '12'
       - run: npm install
-  
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: ’10.x’
-
+        
       - run: npm run build
 
       - name: Deploy
