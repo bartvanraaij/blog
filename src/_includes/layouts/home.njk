@@ -3,7 +3,7 @@ layout: layouts/base.njk
 ---
 {{ content | safe }}
 
-{% set homeBatchSize = 12 %}
+{% set homeBatchSize = 8 %}
 
 {% set latestPosts = collections.post | reverse | head(homeBatchSize) %}
 {% set postsCount = collections.post | length %}
@@ -31,7 +31,7 @@ layout: layouts/base.njk
 
 {% if (postsCount) > homeBatchSize %}
 <div>
-  <a href="/archive/">Archive</a>
+  <a href="{{ '/archive/'|url }}" title="Posts archive">More posts</a>
 </div>
 
 {% endif %}
