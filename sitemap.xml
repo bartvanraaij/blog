@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://bartvanraaij.dev/archive/</loc>
+    <loc>https://bartvanraaij.dev/blog/archive/</loc>
   </url>
   
   <url>
-    <loc>https://bartvanraaij.dev/feed.xml</loc>
+    <loc>https://bartvanraaij.dev/blog/feed.xml</loc>
   </url>
   
   <url>
-    <loc>https://bartvanraaij.dev/about/</loc>
+    <loc>https://bartvanraaij.dev/blog/about/</loc>
   </url>
   
   <url>
-    <loc>https://bartvanraaij.dev/</loc>
+    <loc>https://bartvanraaij.dev/blog/</loc>
   </url>
   
   <url>
-    <loc>https://bartvanraaij.dev/test/</loc>
+    <loc>https://bartvanraaij.dev/blog/test/</loc>
   </url>
   
 </urlset>
