@@ -11,6 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - run: npm install
+  
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
