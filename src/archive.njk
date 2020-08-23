@@ -9,7 +9,7 @@ eleventyComputed:
   title: "Posts archive - page {{ pagination.pageNumber+1 }}"
 ---
 
-<h1>{{ site.title }}</h1>
+<h1>Posts archive</h1>
 {#{% if pagination.pageNumber > 0 %}#}
 {#  {% set permalink = 'page'~(pagination.pageNumber + 1)~'/index.html' %}#}
 {#{% else %}#}
@@ -20,23 +20,37 @@ eleventyComputed:
 {#  title: '<% if (pagination.pageNumber > 0) { %><%= `Page ${pagination.pageNumber + 1} | ${site.title}` %><% } else { %><%= site.title %><% } %>'#}
 {#{{ (pagination.pageNumber > 0) ? 'page'~(pagination.pageNumber + 1)~'/index.html' : 'index.html' }}#}
 
-<ul>
+<ul class="postlist" itemscope itemtype="http://schema.org/Blog">
   {% for post in list %}
-  <li>
-    <a href="{{ post.url|url }}" title="{{ post.data.title }}">{{ post.data.title }}</a>
-    - {{ post.data.date|date }}
+  <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
+    <a href="{{ post.url|url }}" title="{{ post.data.title }}">
+      <meta itemprop="url" content="{{ post.url|url }}" />
+      {% if post.data.image %}
+      <meta itemprop="image" content="{{ ('/assets/images/posts/'~post.data.image) | url }}" />
+      {% endif %}
+      <time class="date" datetime="{{ post.date|date('iso') }}" itemprop="datePublished">{{ post.date|date }}</time>
+      <div class="title" itemprop="headline">{{ post.data.title }}</div>
+      <div class="excerpt" itemprop="abstract">{{ post.data.abstract }}</div>
+    </a>
   </li>
   {% endfor %}
 </ul>
 
-<div>
+<nav id="pagination">
   
   {% if pagination.href.previous %}
-    <a href="{{ pagination.href.previous }}">Newer</a>
+    <a href="{{ pagination.href.previous }}" title="Newer posts">« Newer</a>
+  {% else %}
+    <span>« Newer</span>
   {% endif %}
   {% if pagination.href.next %}
-    <a href="{{ pagination.href.next }}">Older</a>
+    <a href="{{ pagination.href.next }}">Older »</a>
+  {% else %}
+      <span>Older »</span>
   {% endif %}
+</nav>
 
-  <a href="/">Home</a>
-</div>
+
+<footer>
+  <a href="{{ '/'|url }}">Back to home</a>.
+</footer>
