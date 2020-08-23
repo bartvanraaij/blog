@@ -5,8 +5,22 @@
     <link href="https://bartvanraaij.dev/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://bartvanraaij.dev" rel="alternate" type="text/html"/>
     
+    <updated>2020-08-23T09:21:51+00:00</updated>
+    
     <id>https://bartvanraaij.dev/</id>
     <author>
         <name>Bart van Raaij</name>
         <email>info@bartvanraaij.nl</email>
-    </author></feed>
+    </author>
+        <entry>
+            <title>Testpost</title>
+            <link href="https://bartvanraaij.dev/blog/test/"/>
+            <updated>2020-08-23T09:21:51+00:00</updated>
+            <id>https://bartvanraaij.dev/blog/test/</id>
+            <content type="html"><![CDATA[
+                <h1>hoi test</h1>
+<p>tlalral<br>
+sdf</p>
+
+            ]]></content>
+        </entry></feed>
