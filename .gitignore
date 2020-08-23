@@ -8,6 +8,9 @@
 /src/_includes/layouts/assets.njk
 .lazyimages.json
 
+# Github pages
+.github/gh-pages*
+
 # Misc
 .DS_Store
 Thumbs.db
