@@ -5,7 +5,7 @@
     <link href="https://bartvanraaij.dev/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://bartvanraaij.dev" rel="alternate" type="text/html"/>
     
-    <updated>2020-08-23T09:52:34+00:00</updated>
+    <updated>2020-08-23T15:22:59+00:00</updated>
     
     <id>https://bartvanraaij.dev/</id>
     <author>
@@ -14,9 +14,9 @@
     </author>
         <entry>
             <title>Testpost</title>
-            <link href="https://bartvanraaij.dev/blog/test/"/>
-            <updated>2020-08-23T09:52:34+00:00</updated>
-            <id>https://bartvanraaij.dev/blog/test/</id>
+            <link href="https://bartvanraaij.dev/test/"/>
+            <updated>2020-08-23T15:22:59+00:00</updated>
+            <id>https://bartvanraaij.dev/test/</id>
             <content type="html"><![CDATA[
                 <h1>hoi test</h1>
 <p>tlalral<br>
