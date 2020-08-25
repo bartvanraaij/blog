@@ -22,7 +22,9 @@ layout: layouts/base.njk
       {% endif %}
       <time class="date" datetime="{{ post.date|date('iso') }}" itemprop="datePublished">{{ post.date|date }}</time>
       <div class="title" itemprop="headline">{{ post.data.title }}</div>
-      <div class="excerpt" itemprop="abstract">{{ post.data.abstract }}</div>
+      {% if post.data.abstract %}
+      <div class="excerpt" itemprop="abstract">{{ post.data.abstract|nl2br|safe}}</div>
+      {% endif %}
     </a>
   </li>
   {% endfor %}

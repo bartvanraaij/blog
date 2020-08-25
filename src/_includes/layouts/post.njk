@@ -12,7 +12,7 @@ layout: layouts/base.njk
     {% endif %}
     {% if abstract %}
     <div class="abstract" itemprop="abstract">
-      {{- abstract -}}
+      {{- abstract|nl2br|safe -}}
     </div>
     {% endif %}
     
