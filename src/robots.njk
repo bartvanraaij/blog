@@ -3,5 +3,4 @@ permalink: robots.txt
 eleventyExcludeFromCollections: true
 layout: null
 ---
-
-Sitemap: {{ '/sitemap.xml' }}
+Sitemap: {{ '/sitemap.xml'|url|absoluteUrl(site.url) }}
