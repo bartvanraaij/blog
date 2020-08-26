@@ -1,2 +1,1 @@
-
-Sitemap: /sitemap.xml
+Sitemap: https://bartvanraaij.dev/sitemap.xml
