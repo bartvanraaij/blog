@@ -364,7 +364,9 @@ ul.postlist {
 
   :root {
     --text: #000;
+    --grid: 100%;
   }
+
 
   h1 {
     font-size: 2rem;
