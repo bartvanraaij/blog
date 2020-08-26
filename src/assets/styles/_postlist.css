@@ -32,14 +32,14 @@
 .c-postslist__itemdate {
   display: block;
   font-variant-caps: small-caps;
-  color: var(--muted);
   margin-bottom: .15rem;
   text-decoration: none;
+  color: var(--text);
 }
 
 .c-postslist__itemtitle {
   display: block;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: var(--primary);
   line-height: 1.4;
   margin-bottom: .25rem;
@@ -50,5 +50,5 @@
   display: block;
   font-style: italic;
   line-height: 1.4;
-  color: var(--text);
+  color: var(--muted);
 }
