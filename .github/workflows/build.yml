@@ -1,4 +1,4 @@
-name: Eleventy Build
+name: 'Build & Deploy'
 
 on:
   push:
@@ -12,13 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install Node
+      - name: 'Install Node'
         uses: actions/setup-node@v1
         with:
           node-version: '12'
           
-      
-      - name: Cache node modules
+      - name: 'Cache node_modules'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
@@ -33,12 +32,12 @@ jobs:
   
       - run: npm install
       
-      - name: Build
+      - name: 'Build'
         run: npm run build
         env:
           ELEVENTY_PATHPREFIX: '/'
 
-      - name: Deploy
+      - name: 'Deploy'
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
