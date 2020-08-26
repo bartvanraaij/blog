@@ -2,6 +2,7 @@
   "name": "bartvanraaij-blog",
   "version": "1.0.0",
   "description": "Bart van Raaij's Blog",
+  "private": true,
   "scripts": {
     "build-dev:webpack": "webpack",
     "watch:webpack": "webpack --watch",
@@ -9,7 +10,7 @@
     "dev": "npm-run-all clean build-dev:webpack --parallel watch:*",
     "build:webpack": "NODE_ENV=production webpack",
     "build:eleventy": "ELEVENTY_PATHPREFIX=${ELEVENTY_PATHPREFIX:=/} ELEVENTY_ENV=production eleventy --pathprefix=\"$ELEVENTY_PATHPREFIX\"",
-    "build": "run-s clean build:eleventy build:webpack",
+    "build": "run-s clean build:webpack build:eleventy",
     "serve:local": "serve _site",
     "serve": "run-s build serve:local",
     "clean": "rimraf _site",

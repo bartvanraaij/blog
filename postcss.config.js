@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'production') {
   // noinspection JSValidateTypes
   plugins.push(
     require('@fullhuman/postcss-purgecss')({
-      content: ['_site/**/*.html'],
+      content: ['src/**/*.njk', 'src/**/*.md'],
     }),
   );
   plugins.push(
