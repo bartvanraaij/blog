@@ -19,6 +19,7 @@
   --code-bg: white;
   --code-border: #efefef;
   --code-text: #e3116c;
+  --code-text-shadow: none;
 
 
   --font: Charter, Georgia, Cambria, 'Times New Roman', Times, serif;
@@ -39,6 +40,7 @@
 
     --code-bg: #1d1f21;
     --code-border: black;
+    --code-text-shadow: 0 1px rgba(0,0,0,.3);
 
 
   }

@@ -18,4 +18,5 @@ body {
   font-size: var(--code-font-size);
   border-radius: 3px;
   padding: 2.6px 5px 3.4px 5px;
+  text-shadow: var(--code-text-shadow);
 }
