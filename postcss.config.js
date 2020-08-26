@@ -8,11 +8,12 @@ const plugins = [
 
 if (process.env.NODE_ENV === 'production') {
   // noinspection JSValidateTypes
-  plugins.push(
-    require('@fullhuman/postcss-purgecss')({
-      content: ['src/**/*.njk', 'src/**/*.md'],
-    }),
-  );
+  // plugins.push(
+  //   require('@fullhuman/postcss-purgecss')({
+  //     content: ['src/**/*.njk', 'src/**/*.md'],
+  //     safelist: ['a'],
+  //   }),
+  // );
   plugins.push(
     require('cssnano')({
       preset: [

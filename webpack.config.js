@@ -18,7 +18,7 @@ let mode = 'development';
 let devtool = 'source-map';
 
 if (process.env.NODE_ENV === 'production') {
-  cssFileName = 'styles/[name].[contenthash].css';
+  cssFileName = 'styles/[name].[contenthash].min.css';
   mode = 'production';
   devtool = false;
 }
