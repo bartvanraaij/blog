@@ -32,6 +32,8 @@ pre[class*="language-"] {
 	margin: .5em 0;
 	overflow: auto;
 	border-radius: 0.3em;
+	border: .5px solid black;
+
 }
 
 :not(pre) > code[class*="language-"],
@@ -43,6 +45,7 @@ pre[class*="language-"] {
 :not(pre) > code[class*="language-"] {
 	padding: .1em;
 	border-radius: .3em;
+	border: .5px solid black;
 }
 
 .token.comment,
@@ -68,7 +71,9 @@ pre[class*="language-"] {
 
 .token.class-name {
 	color: #FFFFB6;
+	/*
 	text-decoration: underline;
+	*/
 }
 
 .token.boolean,

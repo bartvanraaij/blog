@@ -12,7 +12,7 @@ const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 
 const entries = [];
 // TODO: Remove if the blog does not need syntax highlight
-entries.push(path.resolve(__dirname, 'src/assets/styles/prism-atom-dark.css'));
+// entries.push(path.resolve(__dirname, 'src/assets/styles/prism-atom-dark.css'));
 entries.push(path.resolve(__dirname, 'src/assets/styles/latex.css'));
 entries.push(path.resolve(__dirname, 'src/assets/styles/main.css'));
 
