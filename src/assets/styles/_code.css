@@ -10,13 +10,15 @@ body {
     line-height: 1.5;
   }
 }
-
-:not(pre) > code {
-  color: var(--code-text);
-  background-color: var(--code-bg);
-  border: .5px solid var(--code-border);
-  font-size: var(--code-font-size);
-  border-radius: 3px;
-  padding: 2.6px 5px 3.4px 5px;
-  text-shadow: var(--code-text-shadow);
+p,li,a {
+  > code {
+    color: var(--code-text);
+    background-color: var(--code-bg);
+    border: .5px solid var(--code-border);
+    font-size: var(--code-font-size);
+    border-radius: 3px;
+    padding: 2.6px 5px 3.4px 5px;
+    text-shadow: var(--code-text-shadow);
+  }
 }
+

@@ -26,18 +26,16 @@ ul.postlist {
       .date {
         font-variant-caps: small-caps;
         color: var(--muted);
-        font-size: .9rem;
 
       }
 
       .title {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         color: var(--primary);
       }
 
       .excerpt {
         font-style: italic;
-        font-size: .9rem;
         line-height: 1.6;
       }
 
