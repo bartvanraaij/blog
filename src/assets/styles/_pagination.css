@@ -1,0 +1,18 @@
+
+
+nav#pagination {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-variant-caps: small-caps;
+
+  span {
+    color: var(--muted);
+  }
+
+  a, span {
+    display: inline-block;
+    margin: 0 .25rem;
+  }
+
+}

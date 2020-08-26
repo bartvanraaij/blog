@@ -1,0 +1,44 @@
+
+/* Todo move this to the components */
+@media screen and (max-width: 960px) {
+
+  .post header {
+    margin-top: 0;
+  }
+
+  body {
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.4;
+  }
+
+  h1 + h2 {
+    margin-top: 1rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    margin-top: 2rem;
+  }
+
+  a.anchor {
+    display: none !important;
+  }
+
+  ul.postlist {
+    li {
+      margin-bottom: .6rem;
+    }
+  }
+
+}

@@ -1,0 +1,19 @@
+
+.social {
+  display: inline-block;
+
+  img, svg {
+    width: 24px;
+    display: block
+  }
+
+  svg path {
+    fill: var(--text);
+  }
+
+  &:hover {
+    svg path {
+      fill: var(--primary);
+    }
+  }
+}

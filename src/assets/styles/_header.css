@@ -1,0 +1,35 @@
+#header {
+
+  #author {
+    font-weight: 300;
+    font-size: 1.5rem;
+    /*
+    color: var(--primary);
+    */
+    margin-right: auto;
+
+    img {
+      border-radius: 100%;
+      margin-right: .5rem;
+      width: 48px;
+      height: 48px;
+    }
+
+    display: flex;
+    align-items: center;
+    line-height: 1.1;
+  }
+
+
+  #about {
+    margin-top: 6px;
+  }
+
+  .inner {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: .5rem 0;
+  }
+
+}

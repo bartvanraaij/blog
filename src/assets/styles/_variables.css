@@ -1,0 +1,45 @@
+:root {
+  --grid: 780px;
+  --spacer: 15px;
+
+  --font-size: 17px;
+  --code-font-size: 13px;
+
+  --text: #2b2d2f;
+  --primary: #284ea0;
+  --primary-hover: #062a8b;
+
+  --muted: #686868;
+
+  --border: #e7e0e0;
+  --bg: #fffafa;
+
+  --anchor: #777;
+  --anchor-hover: #333;
+  --code-bg: white;
+  --code-border: #efefef;
+  --code-text: #e3116c;
+
+
+  --font: Charter, Georgia, Cambria, 'Times New Roman', Times, serif;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141414;
+    --text: #fffafa;
+    --muted: #cdcbcb;
+
+    --primary: wheat;
+    --primary-hover: #f1cc84;
+
+    --border: #848383;
+
+    --code-text: #A8FF60;
+
+    --code-bg: #1d1f21;
+    --code-border: black;
+
+
+  }
+}

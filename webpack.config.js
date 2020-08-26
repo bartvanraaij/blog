@@ -11,19 +11,21 @@ const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 // );
 
 const entries = [];
-// TODO: Remove if the blog does not need syntax highlight
-// entries.push(path.resolve(__dirname, 'src/assets/styles/prism-atom-dark.css'));
-entries.push(path.resolve(__dirname, 'src/assets/styles/latex.css'));
 entries.push(path.resolve(__dirname, 'src/assets/styles/main.css'));
 
 let cssFileName = 'styles/[name].css';
+let mode = 'development';
+let devtool = 'source-map';
 
 if (process.env.NODE_ENV === 'production') {
   cssFileName = 'styles/[name].[contenthash].css';
+  mode = 'production';
+  devtool = false;
 }
 
 module.exports = {
-  mode: 'development',
+  mode,
+  devtool,
   entry: entries,
   output: {
     path: path.resolve(__dirname, '_site/assets'),
@@ -54,7 +56,16 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          'postcss-loader',
+        ],
       },
       {
         test: /\.(gif|png|jpg|jpeg)$/i,

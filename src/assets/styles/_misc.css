@@ -1,0 +1,6 @@
+
+hr {
+  border: 0;
+  border-top: 0.5px solid var(--border);
+  margin: 1rem 0;
+}

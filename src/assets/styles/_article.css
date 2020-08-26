@@ -1,0 +1,49 @@
+
+
+.post header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+article {
+  .author {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+}
+
+
+
+.abstract {
+  font-style: italic;
+  color: var(--muted);
+  width: 600px;
+  max-width: 100%;
+  margin: 1.5rem auto;
+}
+
+
+h2, h3, h4 {
+  position: relative;
+
+  a.anchor {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translate3d(-100%, -50%, 0);
+    line-height: 1;
+    display: none;
+    padding-right: .5rem;
+    text-decoration: none !important;
+  }
+
+  &:hover, &:focus {
+    a.anchor {
+      display: block;
+
+      &:hover, &:focus {
+        color: var(--anchor-hover);
+      }
+    }
+  }
+}
