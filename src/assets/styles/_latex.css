@@ -58,9 +58,9 @@ body {
 /* Justify and hyphenate all paragraphs */
 p {
   text-align: justify;
-  hyphens: auto;
+  /*hyphens: auto;
   -webkit-hyphens: auto;
-  -moz-hyphens: auto;
+  -moz-hyphens: auto;*/
   margin-top: 1rem;
 }
 
