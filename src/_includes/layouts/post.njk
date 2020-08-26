@@ -1,31 +1,31 @@
 ---
 layout: layouts/base.njk
 ---
-<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<article class="s-article--post c-page" itemscope itemtype="http://schema.org/BlogPosting">
   <meta itemprop="description" content="{{ description }}" />
   <meta itemprop="name" content="{{ title }}" />
   {% if image %}<meta itemprop="image" content="{{ image  }}" />{% endif %}
-  <header>
+  <header class="c-page__header">
     <h1 itemprop="headline">{{ title }}</h1>
     {% if subtitle %}
       <h2>{{ subtitle }}</h2>
     {% endif %}
     {% if abstract %}
-    <div class="abstract" itemprop="abstract">
+    <div class="c-post__abstract" itemprop="abstract">
       {{- abstract|nl2br|safe -}}
     </div>
     {% endif %}
     
-    <div class="author">
+    <div class="c-post__author">
       <span itemprop="author">{{ site.author }}</span><br/>
       <time datetime="{{ page.date|date('iso') }}" itemprop="datePublished">{{ page.date|date }}</time>
     </div>
   
   </header>
-  <section itemprop="articleBody">
+  <section class="c-pagecontent" itemprop="articleBody">
     {{ content | safe }}
   </section>
-  <footer>
+  <footer class="c-page__footer">
 {#    Todo #}
 {#    {% for tag in tags %}#}
 {#      {%- if collections.tagList.indexOf(tag) != -1 -%}#}

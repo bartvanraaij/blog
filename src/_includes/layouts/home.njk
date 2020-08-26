@@ -1,42 +1,24 @@
 ---
 layout: layouts/base.njk
 ---
-<div class="home">
+<div class="c-home__text">
 {{ content | safe }}
 </div>
 
 {% set homeBatchSize = 8 %}
 
-{% set latestPosts = collections.post | reverse | head(homeBatchSize) %}
+{% set postsList = collections.post | reverse | head(homeBatchSize) %}
 {% set postsCount = collections.post | length %}
 
 {% if postsCount == 0 %}
-  <p><em>It looks like I haven't written anything yet 😱! Please check back later :-).</em></p>
+<p><em>It looks like I haven't written anything yet 😱! Please check back later :-).</em></p>
 {% endif %}
 
-<ul class="postlist" itemscope itemtype="http://schema.org/Blog">
-  {% for post in latestPosts %}
-  <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
-    <a href="{{ post.url|url }}" title="{{ post.data.title }}">
-      <meta itemprop="url" content="{{ post.url|url }}" />
-      {% if post.data.image %}
-      <meta itemprop="image" content="{{ ('/assets/images/posts/'~post.data.image) | url }}" />
-      {% endif %}
-      <time class="date" datetime="{{ post.date|date('iso') }}" itemprop="datePublished">{{ post.date|date }}</time>
-      <div class="title" itemprop="headline">{{ post.data.title }}</div>
-      {% if post.data.abstract %}
-      <div class="excerpt" itemprop="abstract">{{ post.data.abstract|nl2br|safe}}</div>
-      {% endif %}
-    </a>
-  </li>
-  {% endfor %}
-</ul>
-
+{% include "partials/postslist.njk" %}
 
 {% if (postsCount) > homeBatchSize %}
 <div>
   <a href="{{ '/archive/'|url }}" title="Posts archive">More posts</a>
 </div>
-
 {% endif %}
 

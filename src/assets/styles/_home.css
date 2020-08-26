@@ -1,6 +1,15 @@
-.home {
+.c-home__text {
+
+  margin-bottom: 2.5rem;
+
   h1 {
     margin-bottom: 2rem;
+    text-align: center;
   }
-  margin-bottom: 1.5rem;
+}
+
+@media screen and (max-width: 960px) {
+  .c-home__text {
+    margin-bottom: 1.5rem;
+  }
 }

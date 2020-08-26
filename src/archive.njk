@@ -2,55 +2,40 @@
 pagination:
   data: collections.post
   size: 8
-  alias: list
+  alias: postsList
   reverse: true
 permalink: "archive/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 }}.html{% else %}index.html{% endif %}"
 eleventyComputed:
   title: "Posts archive - page {{ pagination.pageNumber+1 }}"
 ---
 
-<h1>Posts archive</h1>
-{#{% if pagination.pageNumber > 0 %}#}
-{#  {% set permalink = 'page'~(pagination.pageNumber + 1)~'/index.html' %}#}
-{#{% else %}#}
-{#    {% set permalink = 'index.html' %}#}
-{#{% endif %}#}
-{#permalink: '{{ permalink }}'#}
-{#eleventyComputed:#}
-{#  title: '<% if (pagination.pageNumber > 0) { %><%= `Page ${pagination.pageNumber + 1} | ${site.title}` %><% } else { %><%= site.title %><% } %>'#}
-{#{{ (pagination.pageNumber > 0) ? 'page'~(pagination.pageNumber + 1)~'/index.html' : 'index.html' }}#}
+<header class="c-page__header">
+  <h1>Posts archive</h1>
+</header>
 
-<ul class="postlist" itemscope itemtype="http://schema.org/Blog">
-  {% for post in list %}
-  <li itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
-    <a href="{{ post.url|url }}" title="{{ post.data.title }}">
-      <meta itemprop="url" content="{{ post.url|url }}" />
-      {% if post.data.image %}
-      <meta itemprop="image" content="{{ ('/assets/images/posts/'~post.data.image) | url }}" />
-      {% endif %}
-      <time class="date" datetime="{{ post.date|date('iso') }}" itemprop="datePublished">{{ post.date|date }}</time>
-      <div class="title" itemprop="headline">{{ post.data.title }}</div>
-      <div class="excerpt" itemprop="abstract">{{ post.data.abstract }}</div>
-    </a>
-  </li>
-  {% endfor %}
-</ul>
-
-<nav id="pagination">
+<section class="c-page__content">
   
-  {% if pagination.href.previous %}
-    <a href="{{ pagination.href.previous }}" title="Newer posts">« Newer</a>
-  {% else %}
-    <span>« Newer</span>
-  {% endif %}
-  {% if pagination.href.next %}
-    <a href="{{ pagination.href.next }}">Older »</a>
-  {% else %}
-      <span>Older »</span>
-  {% endif %}
-</nav>
+  {% include "partials/postslist.njk" %}
+  
+  <nav class="c-pagination">
+    {% if pagination.href.previous %}
+      <a class="c-pagination__link"
+         href="{{ pagination.href.previous }}"
+         title="Newer posts">« Newer</a>
+    {% else %}
+      <span class="c-pagination__link c-pagination__link--disabled">« Newer</span>
+    {% endif %}
+    {% if pagination.href.next %}
+      <a  class="c-pagination__link"
+          href="{{ pagination.href.next }}">Older »</a>
+    {% else %}
+        <span class="c-pagination__link c-pagination__link--disabled">Older »</span>
+    {% endif %}
+  </nav>
+  
+</section>
 
 
-<footer>
+<footer class="c-page__footer">
   <a href="{{ '/'|url }}">Back to home</a>.
 </footer>

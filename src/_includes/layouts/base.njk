@@ -13,12 +13,12 @@
   </head>
   <body>
     {% include './nav.njk' %}
-    <main class="container">
+    <main class="s-container s-main">
     {{ content | safe }}
     </main>
   
-    <footer id="footer" class="container">
-      <div class="inner">
+    <footer class="s-container c-footer">
+      <div class="c-footer__content">
         {% include './social.njk' %}
       </div>
     </footer>

@@ -1,6 +1,10 @@
 
 html {
   font-size: var(--font-size);
+  scroll-behavior: smooth;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
 }
 
 body {
@@ -12,30 +16,30 @@ body {
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font);
+  text-rendering: optimizeLegibility;
 }
 
-main {
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+button {
+  font: inherit;
+}
+
+
+.s-main {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
 
-.container {
+.s-container {
   width: var(--grid);
   max-width: 100%;
   padding-left: var(--spacer);
   padding-right: var(--spacer);
   margin: 0 auto;
-}
-
-body > footer {
-  .inner {
-    padding: 1rem 0;
-    border-top: 0.5px solid var(--border);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    a:not(:last-child) {
-      margin-right: .5rem;
-    }
-  }
 }

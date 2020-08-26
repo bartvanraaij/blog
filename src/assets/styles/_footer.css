@@ -1,0 +1,33 @@
+
+.c-footer {
+}
+
+.c-footer__content {
+  padding: 1rem 0;
+  border-top: 0.5px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  a:not(:last-child) {
+    margin-right: .5rem;
+  }
+}
+
+.c-footer__icon {
+  display: inline-block;
+
+  img, svg {
+    width: 24px;
+    display: block
+  }
+
+  svg path {
+    fill: var(--text);
+  }
+
+  &:hover {
+    svg path {
+      fill: var(--primary);
+    }
+  }
+}

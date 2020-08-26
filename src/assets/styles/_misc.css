@@ -4,3 +4,27 @@ hr {
   border-top: 0.5px solid var(--border);
   margin: 1rem 0;
 }
+
+h2, h3, h4 {
+  position: relative;
+
+  a.anchor {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translate3d(-100%, -50%, 0);
+    line-height: 1;
+    display: none;
+    padding-right: .5rem;
+    text-decoration: none !important;
+  }
+
+  &:hover, &:focus {
+    a.anchor {
+      display: block;
+      &:hover, &:focus {
+        color: var(--anchor-hover);
+      }
+    }
+  }
+}

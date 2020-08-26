@@ -1,35 +1,30 @@
-#header {
+.c-header {
 
-  #author {
-    font-weight: 300;
-    font-size: 1.5rem;
-    /*
-    color: var(--primary);
-    */
-    margin-right: auto;
+}
 
-    img {
-      border-radius: 100%;
-      margin-right: .5rem;
-      width: 48px;
-      height: 48px;
-    }
+.c-header__inner {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: var(--spacer) 0;
+}
 
-    display: flex;
-    align-items: center;
-    line-height: 1.1;
-  }
+.c-header__tagline {
+  font-weight: 300;
+  font-size: 1.5rem;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  line-height: 1.1;
+}
 
+.c-header__avatar {
+  border-radius: 100%;
+  margin-right: .5rem;
+  width: 48px;
+  height: 48px;
+}
 
-  #about {
-    margin-top: 6px;
-  }
-
-  .inner {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: .5rem 0;
-  }
-
+.c-header__link {
+  margin-top: 6px;
 }
