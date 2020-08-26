@@ -35,7 +35,6 @@
     "html-minifier": "^4.0.0",
     "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",
-    "image-webpack-loader": "^6.0.0",
     "latex.css": "^1.2.0",
     "lint-staged": "^10.2.11",
     "luxon": "^1.24.1",
