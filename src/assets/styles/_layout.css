@@ -43,3 +43,6 @@ button {
   padding-right: var(--spacer);
   margin: 0 auto;
 }
+.s-container--wider {
+  width: var(--grid-wide);
+}

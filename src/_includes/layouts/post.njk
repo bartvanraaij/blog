@@ -17,7 +17,7 @@ layout: layouts/base.njk
     {% endif %}
     
     <div class="c-post__author">
-      <span itemprop="author">{{ site.author }}</span><br/>
+      <span itemprop="author">{{ author or site.author }}</span><br/>
       <time datetime="{{ page.date|date('iso') }}" itemprop="datePublished">{{ page.date|date }}</time>
     </div>
   
