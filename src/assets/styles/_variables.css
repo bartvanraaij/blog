@@ -1,11 +1,11 @@
 :root {
   --grid: 780px;
   --grid-wide: 960px;
+  --grid-medium: 620px;
   --grid-small: 500px;
   --spacer: 15px;
 
   --font-size: 17px;
-  --code-font-size: 13px;
 
   --text: #2b2d2f;
   --primary: #284ea0;
@@ -16,13 +16,14 @@
   --border: #e7e0e0;
   --bg: #fffafa;
 
-  --anchor: #777;
+  --anchor: var(--muted);
   --anchor-hover: #333;
+
+  --code-font-size: 13px;
   --code-bg: white;
   --code-border: #efefef;
   --code-text: #e3116c;
   --code-text-shadow: none;
-
 
   --font: Charter, Georgia, Cambria, 'Times New Roman', Times, serif;
 }
@@ -39,11 +40,11 @@
     --border: #848383;
 
     --code-text: #A8FF60;
-
     --code-bg: #1d1f21;
     --code-border: black;
     --code-text-shadow: 0 1px rgba(0,0,0,.3);
 
+    --anchor-hover: #999;
 
   }
 }

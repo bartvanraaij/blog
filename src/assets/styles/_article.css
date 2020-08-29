@@ -10,10 +10,18 @@
 .c-post__abstract {
   font-style: italic;
   color: var(--muted);
-  width: 600px;
+
+  padding: 0 2rem;
+
   max-width: 100%;
   margin: 1.5rem auto;
   text-align:center;
+}
+
+@media screen and (max-width: 960px) {
+  .c-post__abstract {
+    padding: 0;
+  }
 }
 
 
