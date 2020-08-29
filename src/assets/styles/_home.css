@@ -1,15 +1,28 @@
 .c-home__text {
 
   margin-bottom: 2.5rem;
+  p, h1 {
+
+  }
 
   h1 {
-    margin-bottom: 2rem;
+    margin-bottom: 1.8rem;
+    text-align: left;
+    font-size: 1.8rem;
+  }
+
+  strong {
+    font-size: 1.2rem;
     text-align: center;
   }
+
 }
 
 @media screen and (max-width: 960px) {
   .c-home__text {
     margin-bottom: 1.5rem;
+    h1 {
+      font-size: 1.4rem;
+    }
   }
 }

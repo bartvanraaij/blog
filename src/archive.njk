@@ -19,17 +19,17 @@ eleventyComputed:
   
   <nav class="c-pagination">
     {% if pagination.href.previous %}
-      <a class="c-pagination__link"
+      <a class="c-pagination__link c-btn"
          href="{{ pagination.href.previous }}"
          title="Newer posts">« Newer</a>
     {% else %}
-      <span class="c-pagination__link c-pagination__link--disabled">« Newer</span>
+      <span class="c-pagination__link c-pagination__link--disabled  c-btn">« Newer</span>
     {% endif %}
     {% if pagination.href.next %}
       <a  class="c-pagination__link"
           href="{{ pagination.href.next }}">Older »</a>
     {% else %}
-        <span class="c-pagination__link c-pagination__link--disabled">Older »</span>
+        <span class="c-pagination__link c-pagination__link--disabled  c-btn">Older »</span>
     {% endif %}
   </nav>
   
@@ -37,5 +37,5 @@ eleventyComputed:
 
 
 <footer class="c-page__footer">
-  <a href="{{ '/'|url }}">Back to home</a>.
+  <a href="{{ '/'|url }}" class="c-btn" title="Back to home">« Back to home</a>
 </footer>

@@ -4,6 +4,7 @@ permalink: index.html
 ---
 
 
-# Hi there! 👋
+# Bart van Raaij is a web developer based in Nijmegen, the Netherlands.
 
-Welcome to my blog. [Read more about me](about/ "About Bart") or check out my latest posts:
+Hi there 👋! Thanks for stopping by.  
+[Read more about me]({{'/about/'|url}} "About Bart") or check out my latest posts:

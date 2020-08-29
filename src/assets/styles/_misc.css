@@ -7,24 +7,37 @@ hr {
 
 h2, h3, h4 {
   position: relative;
-
-  a.anchor {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    transform: translate3d(-100%, -50%, 0);
-    line-height: 1;
-    display: none;
-    padding-right: .5rem;
-    text-decoration: none !important;
-  }
-
   &:hover, &:focus {
     a.anchor {
       display: block;
-      &:hover, &:focus {
-        color: var(--anchor-hover);
-      }
     }
   }
+}
+
+
+a.anchor {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  transform: translate3d(-100%, 0, 0);
+  line-height: 1;
+  display: none;
+  padding-right: .5rem;
+  text-decoration: none !important;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 40px; height: 40px;
+  }
+
+  &:hover, &:focus {
+    color: var(--anchor-hover);
+  }
+}
+
+h3 a.anchor {
+  top: 8px;
 }

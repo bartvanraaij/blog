@@ -4,8 +4,8 @@ description: 'Bart van Raaij is a web developer based in Nijmegen, the Netherlan
 ---
 ## About me
 I'm Bart, a web developer based in Nijmegen, the Netherlands. I'm currently employed as Development
-Team Lead at [Linku](https://linku.nl), where I work with a team of talented people to create
-bespoke web applications, websites and mobile apps.
+Team Lead at [Linku](https://linku.nl), a digital agency where I work with a team of talented people
+to create bespoke web applications, websites and mobile apps.
 
 Most of my development work is done with either [PHP](https://www.php.net/) and
 [Symfony](https://symfony.com/) or [TypeScript](https://www.typescriptlang.org/) and

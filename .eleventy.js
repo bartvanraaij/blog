@@ -40,51 +40,36 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter('date', (dateObj, type) => {
     let format;
+    const dateTime = DateTime.fromJSDate(dateObj, { zone: 'utc' });
     switch (type) {
       case 'iso':
         return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toISODate();
-        break;
       case 'date':
       default:
-        format = 'LLLL d, yyyy';
-        break;
+        return dateTime.toFormat('LLLL d, yyyy');
     }
-    // format = 'dd LLL yyyy';
-    return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat(format);
   });
-  // eleventyConfig.addFilter("readableDate", dateObj => {
-  //   return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat("dd LLL yyyy");
-  // });
-  //
-  // // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
-  // eleventyConfig.addFilter('htmlDateString', (dateObj) => {
-  //   return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
-  // });
 
   eleventyConfig.setBrowserSyncConfig({
     files: './_site/assets/styles/main.css',
     ghostMode: false,
   });
 
-  // Get the first `n` elements of a collection.
+  // Get the first `n` elements of a collection. Or last by supplying a negative `n`
   eleventyConfig.addFilter('head', (array, n) => {
-    if (n < 0) {
-      return array.slice(n);
-    }
-    return array.slice(0, n);
+    return n < 0 ? array.slice(n) : array.slice(0, n);
   });
 
   eleventyConfig.addTransform('htmlmin', (content, outputPath) => {
     if (outputPath.endsWith('.html')) {
-      const minified = htmlmin.minify(content, {
+      return htmlmin.minify(content, {
         useShortDoctype: true,
         removeComments: true,
         collapseWhitespace: true,
         minifyJS: true,
+        conservativeCollapse: false,
       });
-      return minified;
     }
-
     return content;
   });
 
@@ -131,5 +116,6 @@ module.exports = function (eleventyConfig) {
       output: '_site',
       data: '_data',
     },
+    markdownTemplateEngine: 'njk',
   };
 };

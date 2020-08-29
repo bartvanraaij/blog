@@ -1,24 +1,26 @@
 ---
 layout: layouts/base.njk
 ---
-<div class="c-home__text">
+<div class="c-home__text s-box">
 {{ content | safe }}
 </div>
 
-{% set homeBatchSize = 8 %}
+{% set homeBatchSize = 4 %}
 
 {% set postsList = collections.post | reverse | head(homeBatchSize) %}
 {% set postsCount = collections.post | length %}
 
 {% if postsCount == 0 %}
-<p><em>It looks like I haven't written anything yet 😱! Please check back later :-).</em></p>
+<p><em>It looks like I haven't written anything yet! Please check back later :-).</em></p>
 {% endif %}
 
 {% include "partials/postslist.njk" %}
 
 {% if (postsCount) > homeBatchSize %}
 <div>
-  <a href="{{ '/archive/'|url }}" title="Posts archive">More posts</a>
+  <a href="{{ '/archive/'|url }}"
+     class="c-btn"
+     title="Posts archive">More posts »</a>
 </div>
 {% endif %}
 
