@@ -11,7 +11,7 @@
     "build:webpack": "NODE_ENV=production webpack",
     "build:eleventy": "ELEVENTY_PATHPREFIX=${ELEVENTY_PATHPREFIX:=/} ELEVENTY_ENV=production eleventy --pathprefix=\"$ELEVENTY_PATHPREFIX\"",
     "build:purgecss": "purgecss --css '_site/assets/styles/*.min.css' --content '_site/**/*.html' --output '_site/assets/styles/'",
-    "build": "run-s clean build:webpack build:eleventy build:purgecss",
+    "build": "run-s clean build:webpack build:eleventy",
     "serve:local": "serve _site",
     "serve": "run-s build serve:local",
     "clean": "rimraf _site",
