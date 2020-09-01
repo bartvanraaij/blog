@@ -8,7 +8,13 @@ body {
     font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
     font-size: var(--code-font-size);
     line-height: 1.5;
+    /*
     margin: .5rem 0 1.5rem 0;
+    */
+    margin: .5rem 0;
+    /*
+    margin: 0 0 .5rem 0;
+    */
   }
 }
 p,li,a {
@@ -23,3 +29,18 @@ p,li,a {
   }
 }
 
+pre[class*="language-"] +.c-code-example-link {
+  /*
+  outline: 1px solid red;
+  */
+  margin-top: -.5rem;
+  text-align: right;
+  font-size: .8rem;
+}
+pre[class*="language-"] +.c-code-example-link a {
+  /*
+  font-variant-caps: small-caps;
+  */
+  padding-right: 6px;
+
+}

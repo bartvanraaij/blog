@@ -1,5 +1,8 @@
 body {
   line-height: 1.8;
+  color: var(--text);
+  font-family: var(--font);
+  text-rendering: optimizeLegibility;
 }
 h1, h2, h3 {
   font-weight: 500;
@@ -61,4 +64,41 @@ a:focus {
 
 ul {
   padding-inline-start: 1.5rem;
+}
+
+
+aside {
+  margin-left: 1rem;
+  font-style: italic;
+  margin-top: 1rem;
+  p {
+    border-left: 4px solid var(--border);
+    padding-left: 1rem;
+  }
+}
+
+blockquote {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-family: var(--font-secondary);
+  font-size: 16px;
+  background: var(--blockquote-bg);
+  padding: .7rem 1rem;
+  border-left: 4px solid var(--border);
+  border-radius: 0 4px 4px 0;
+  line-height: 1.6;
+
+  p {
+    padding: 0;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  aside, blockquote {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }

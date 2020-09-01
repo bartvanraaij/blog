@@ -26,6 +26,10 @@
   --code-text-shadow: none;
 
   --font: Charter, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-secondary: Seravek, 'San Francisco', Tahoma,  Verdana, Arial, sans-serif;
+
+  --blockquote-bg: rgba(0,0,0,.03);
+
 }
 
 @media screen and (prefers-color-scheme: dark) {
@@ -37,7 +41,7 @@
     --primary: wheat;
     --primary-hover: #f1cc84;
 
-    --border: #848383;
+    --border: #626262;
 
     --code-text: #A8FF60;
     --code-bg: #1d1f21;
@@ -45,6 +49,11 @@
     --code-text-shadow: 0 1px rgba(0,0,0,.3);
 
     --anchor-hover: #999;
+
+    --blockquote-bg: rgba(255,255,255,.05);
+    /*
+    --blockquote-bg: var(--code-bg);
+    */
 
   }
 }

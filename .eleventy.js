@@ -5,6 +5,8 @@ const pluginRss = require('@11ty/eleventy-plugin-rss');
 const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
 const markdownItLazyImg = require('markdown-it-image-lazy-loading');
+const markdownitLinkAttributes = require('markdown-it-link-attributes');
+const markdownitAttrs = require('markdown-it-attrs');
 
 // const bart = {
 //   doeIets: (input) => {
@@ -82,6 +84,13 @@ module.exports = function (eleventyConfig) {
     linkify: true,
     typographer: true,
   })
+    .use(markdownitLinkAttributes, {
+      pattern: /^http/,
+      attrs: {
+        target: '_blank',
+        rel: 'noopener',
+      },
+    })
     .use(markdownItAnchor, {
       permalink: true,
       permalinkClass: 'anchor',
@@ -89,7 +98,8 @@ module.exports = function (eleventyConfig) {
       permalinkBefore: true,
       level: 2,
     })
-    .use(markdownItLazyImg);
+    .use(markdownItLazyImg)
+    .use(markdownitAttrs);
   eleventyConfig.setLibrary('md', markdownLibrary);
 
   eleventyConfig.addCollection('tagList', function (collection) {
