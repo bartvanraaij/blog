@@ -1,10 +1,13 @@
 
-.c-footer__icon {
+.c-social-icon {
   display: inline-block;
+  width: 28px;
+  height: 28px;
 
   img, svg {
-    width: 24px;
-    display: block
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
   }
 
   svg path {
@@ -17,3 +20,23 @@
     }
   }
 }
+
+/*
+.c-social-icon--github:hover {
+    svg path {
+      fill: #24292e;
+    }
+}
+
+.c-social-icon--linkedin:hover {
+    svg path {
+      fill: #0e76a8;
+    }
+}
+
+.c-social-icon--twitter:hover {
+    svg path {
+      fill: #1DA1F2;
+    }
+}
+*/
