@@ -11,6 +11,9 @@
 # Github pages
 .github/gh-pages*
 
+# Drafts
+src/drafts/*
+
 # Misc
 .DS_Store
 Thumbs.db
