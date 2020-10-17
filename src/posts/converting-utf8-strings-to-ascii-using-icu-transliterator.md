@@ -147,7 +147,7 @@ Output:
 string(17) "Igor' Stravinskij"
 ```
 
-By adding the `Any-Latin` transform rule the transliterator first converts any script into Latin script and then convert the Latin script to ASCII using `Latin-ASCII`. Both instructions are separated by a semicolon. That's it! That's our end mark.
+By prepending the `Any-Latin` transform rule, the transliterator first converts text from any script into Latin script and then converts the Latin text into ASCII using `Latin-ASCII`. Both instructions are separated by a semicolon. That's it! That's our end mark.
 
 With these few simple lines of PHP code, I have now found a simple yet reliable way to correctly transform any text into ASCII. Without hesitation I wrote a helper function using this code, made sure that all user input in my customer's form was passed through this function and end-to-end tested my form again. And as you might expect: the API call worked again and my customer was happy with my solution. All done!
 
