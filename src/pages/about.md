@@ -19,7 +19,7 @@ Feel free to look me up at:
 - [twitter.com/bartvanraaij](https://twitter.com/bartvanraaij)
 - [linkedin.com/in/bartvanraaij](https://www.linkedin.com/in/bartvanraaij/)
 - [github.com/bartvanraaij](https://github.com/bartvanraaij/)
+- [dev.to/bartvanraaij](https://dev.to/bartvanraaij/)
 
 ## About this blog
-It's built with
-[Eleventy](https://www.11ty.dev). More to follow.
+It's built with [Eleventy](https://www.11ty.dev) and hosted on [GitHub Pages](https://pages.github.com/). More to follow.
