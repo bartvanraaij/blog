@@ -2,6 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bartvanraaij.dev/2020-10-17-converting-utf8-strings-to-ascii-using-icu-transliterator/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bartvanraaij.dev/archive/</loc>
+  </url>
+  
+  <url>
     <loc>https://bartvanraaij.dev/about/</loc>
   </url>
   
