@@ -3,6 +3,10 @@ body {
   color: var(--text);
   font-family: var(--font);
   text-rendering: optimizeLegibility;
+  /*
+  overflow-wrap: break-word;
+  hyphens: auto;
+  */
 }
 h1, h2, h3 {
   font-weight: 500;
@@ -50,6 +54,10 @@ a, a:visited {
 a:hover {
   color: var(--primary-hover);
   text-decoration: underline;
+
+  code {
+    text-decoration: underline;
+  }
 }
 
 a:focus {
@@ -66,8 +74,14 @@ ul {
   padding-inline-start: 1.5rem;
 }
 
+ul, ol {
+  li {
+    margin: .25rem 0 .5rem 0;
+  }
+}
 
-aside {
+
+aside, blockquote {
   margin-left: 1rem;
   font-style: italic;
   margin-top: 1rem;
@@ -77,7 +91,7 @@ aside {
   }
 }
 
-blockquote {
+blockquote.c-php-doc {
   margin-left: 1rem;
   margin-right: 1rem;
   font-family: var(--font-secondary);
@@ -87,8 +101,11 @@ blockquote {
   border-left: 4px solid var(--border);
   border-radius: 0 4px 4px 0;
   line-height: 1.6;
+  hyphens: initial;
+  font-style: normal;
 
   p {
+    border-left: none;
     padding: 0;
     &:first-child {
       margin-top: 0;

@@ -17,7 +17,7 @@ body {
     */
   }
 }
-p,li,a {
+p,li,a,em {
   > code {
     color: var(--code-text);
     background-color: var(--code-bg);
@@ -26,6 +26,7 @@ p,li,a {
     border-radius: 3px;
     padding: 2.6px 5px 3.4px 5px;
     text-shadow: var(--code-text-shadow);
+    font-style: normal;
   }
 }
 
