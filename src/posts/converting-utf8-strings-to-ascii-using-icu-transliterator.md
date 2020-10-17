@@ -3,7 +3,7 @@ title:  "Converting UTF-8 strings to ASCII using the ICU Transliterator"
 abstract: "Sometimes we still have to work with legacy systems with limited character sets like ASCII.<br>
 I learned the ICU Transliterator is a valuable tool for converting strings between character sets, with even more extensive transforms possible."
 date: 2020-10-17
-description: "Learn how to use ICU Transliterator to correctly convert UTF-8 strings."
+description: "Learn how to use the ICU Transliterator to correctly convert UTF-8 strings to ASCII."
 ---
 
 With the general availability and widespread support of UTF-8, character encoding issues are thankfully becoming a problem of the past. But unfortunately there are still tons of legacy systems out there that don't support it.
