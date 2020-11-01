@@ -1,0 +1,66 @@
+[data-tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+[data-tooltip]:after {
+  line-height: 1;
+  font-size: .8rem;
+  pointer-events: none;
+  position: absolute;
+  box-sizing: border-box;
+  display: none;
+  opacity: 0;
+  border: 0.5px solid var(--tooltip-border);
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  text-align: center;
+  min-width: 3em;
+  max-width: 21em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 2.6px 5px 3.4px 5px;
+  border-radius: 3px;
+  background: var(--code-bg);
+  color: var(--text);
+  z-index: 99;
+}
+
+[data-tooltip]:hover::after {
+  display: block;
+  opacity: 1;
+}
+
+[data-tooltip]:not([data-flow])::after,
+[data-tooltip][data-flow="top"]::after,
+[data-tooltip][data-flow="bottom"]::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+[data-tooltip][data-flow="left"]::after,
+[data-tooltip][data-flow="right"]::after {
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: 1px;
+}
+
+[data-tooltip]:not([data-flow])::after,
+[data-tooltip][data-flow="top"]::after {
+  bottom: 80%;
+}
+
+[data-tooltip][data-flow="bottom"]::after {
+  top: 100%;
+}
+
+[data-tooltip][data-flow="left"]::after {
+  right: 105%;
+}
+
+[data-tooltip][data-flow="right"]::after {
+  left: 105%;
+}

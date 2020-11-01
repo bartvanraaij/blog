@@ -24,5 +24,9 @@
     </footer>
     <link rel="stylesheet" type="text/css" href="{{ '/assets/styles/prism-atom-dark.min.css' }}" media="screen and (prefers-color-scheme: dark)">
     <link rel="stylesheet" type="text/css" href="{{ '/assets/styles/prism-ghcolors.min.css' }}" media="(prefers-color-scheme: light)">
+    <script>
+      {% set ctc_js %}{% include "scripts/copy-to-clipboard.js" %}{% endset %}
+      {{ ctc_js | jsmin | safe }}
+    </script>
   </body>
 </html>

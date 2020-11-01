@@ -46,12 +46,12 @@ ul {
   margin-bottom: 1rem;
 }
 
-a, a:visited {
+a, a:visited, .c-link {
   color: var(--primary);
   text-decoration: none;
 }
 
-a:hover {
+a:hover, .c-link:hover {
   color: var(--primary-hover);
   text-decoration: underline;
 
@@ -60,7 +60,7 @@ a:hover {
   }
 }
 
-a:focus {
+a:focus, .c-link:focus {
   outline-offset: 2px;
   outline: 2px auto var(--primary);
 }

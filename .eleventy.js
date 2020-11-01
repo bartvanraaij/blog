@@ -7,6 +7,7 @@ const markdownItAnchor = require('markdown-it-anchor');
 const markdownItLazyImg = require('markdown-it-image-lazy-loading');
 const markdownitLinkAttributes = require('markdown-it-link-attributes');
 const markdownitAttrs = require('markdown-it-attrs');
+const { minify } = require('terser');
 
 // const bart = {
 //   doeIets: (input) => {
@@ -117,6 +118,18 @@ module.exports = function (eleventyConfig) {
 
     // returning an array in addCollection works in Eleventy 0.5.3
     return [...tagSet];
+  });
+
+  eleventyConfig.addNunjucksAsyncFilter('jsmin', async function (code, callback) {
+    try {
+      const terserOpts = { toplevel: true };
+      const minified = await minify(code, terserOpts);
+      callback(null, minified.code);
+    } catch (err) {
+      console.error('Terser error: ', err);
+      // Fail gracefully.
+      callback(null, code);
+    }
   });
 
   return {

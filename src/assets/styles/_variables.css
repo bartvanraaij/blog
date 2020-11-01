@@ -25,6 +25,8 @@
   --code-text: #e3116c;
   --code-text-shadow: none;
 
+  --tooltip-border: #ddd;
+
   --font: Charter, Georgia, Cambria, 'Times New Roman', Times, serif;
   --font-secondary: Seravek, 'San Francisco', Tahoma,  Verdana, Arial, sans-serif;
 
@@ -47,6 +49,8 @@
     --code-bg: #1d1f21;
     --code-border: black;
     --code-text-shadow: 0 1px rgba(0,0,0,.3);
+
+    --tooltip-border: black;
 
     --anchor-hover: #999;
 

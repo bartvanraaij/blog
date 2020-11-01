@@ -17,6 +17,7 @@ runner but in all honesty my Netflix account has way more activity in it than my
 ### Social
 Feel free to look me up at:
 - [twitter.com/bartvanraaij](https://twitter.com/bartvanraaij)
+- <span class="c-link js-copy-to-clipboard" data-tooltip="Click to copy" data-copy="bartvanraaij#5233">bartvanraaij#5233</span> on Discord
 - [linkedin.com/in/bartvanraaij](https://www.linkedin.com/in/bartvanraaij/)
 - [github.com/bartvanraaij](https://github.com/bartvanraaij/)
 - [dev.to/bartvanraaij](https://dev.to/bartvanraaij/)
