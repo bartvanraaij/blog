@@ -54,8 +54,10 @@
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "serve": "^11.3.2",
+    "svg-sprite": "^1.5.0",
     "terser": "^5.3.8",
     "url-loader": "^4.1.0",
+    "vinyl": "^2.2.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-fix-style-only-entries": "^0.5.1"
