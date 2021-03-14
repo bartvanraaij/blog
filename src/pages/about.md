@@ -3,24 +3,21 @@ title: 'About'
 description: 'Bart van Raaij is a web developer based in Nijmegen, the Netherlands.'
 ---
 ## About me
-I'm Bart, a web developer based in Nijmegen, the Netherlands. I'm currently employed as Development
-Team Lead at [Linku](https://linku.nl), a digital agency where I work with a team of talented people
-to create bespoke web applications, websites and mobile apps.
+I'm a web developer based in Nijmegen, the Netherlands. I'm currently employed at [Linku](https://linku.nl), 
+a digital agency where I work with a team of talented people to create bespoke web applications, websites and mobile apps.
 
 Most of my development work is done with either [PHP](https://www.php.net/) and
 [Symfony](https://symfony.com/) or [TypeScript](https://www.typescriptlang.org/) and
 [Angular](https://angular.io/), but I like to dabble in other languages and frameworks as well.
 
-In my spare time I'm an avid musician (electric guitar and the tuba) and I like to tell people I'm a
-runner but in all honesty my Netflix account has way more activity in it than my Runkeeper's.
+In my spare time I'm an avid musician (electric guitar and the tuba) and runner.
 
 ### Social
 Feel free to look me up at:
-- [twitter.com/bartvanraaij](https://twitter.com/bartvanraaij)
-- <span class="c-link js-copy-to-clipboard" data-tooltip="Click to copy" data-copy="bartvanraaij#5233">bartvanraaij#5233</span> on Discord
 - [linkedin.com/in/bartvanraaij](https://www.linkedin.com/in/bartvanraaij/)
 - [github.com/bartvanraaij](https://github.com/bartvanraaij/)
 - [dev.to/bartvanraaij](https://dev.to/bartvanraaij/)
 
 ## About this blog
-It's built with [Eleventy](https://www.11ty.dev) and hosted on [GitHub Pages](https://pages.github.com/). More to follow.
+I've built this blog with [Eleventy](https://www.11ty.dev) and host it on [GitHub Pages](https://pages.github.com/). 
+You can check out the source code at [GitHub](https://github.com/bartvanraaij/blog).
