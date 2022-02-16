@@ -3,12 +3,10 @@ title: 'About'
 description: 'Bart van Raaij is a web developer based in Nijmegen, the Netherlands.'
 ---
 ## About me
-I'm a web developer based in Nijmegen, the Netherlands. I'm currently employed at [Linku](https://linku.nl), 
-a digital agency where I work with a team of talented people to create bespoke web applications, websites and mobile apps.
+I'm a web developer based in Nijmegen, the Netherlands. I'm currently employed as _tech team lead_ at [Coolblue](https://www.coolblue.nl), 
+one of the largest Dutch e-commerce companies.
 
-Most of my development work is done with either [PHP](https://www.php.net/) and
-[Symfony](https://symfony.com/) or [TypeScript](https://www.typescriptlang.org/) and
-[Angular](https://angular.io/), but I like to dabble in other languages and frameworks as well.
+Most of my development work is done with either [PHP](https://www.php.net/) or [TypeScript](https://www.typescriptlang.org/), but I'm no stranger to other languages and frameworks.
 
 In my spare time I'm an avid musician (electric guitar and the tuba) and runner.
 
