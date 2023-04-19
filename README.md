@@ -6,4 +6,4 @@ and also inspired by [11ty/eleventy-base-blog](https://github.com/11ty/eleventy-
 
 Hosted and deployed on [GitHub Pages](https://pages.github.com/).
 
-![Eleventy Build](https://github.com/bartvanraaij/blog/workflows/Eleventy%20Build/badge.svg)
+[![Build & Deploy](https://github.com/bartvanraaij/blog/actions/workflows/build.yml/badge.svg)](https://github.com/bartvanraaij/blog/actions/workflows/build.yml)
