@@ -3,10 +3,10 @@ title: 'About'
 description: 'Bart van Raaij is a web developer based in Nijmegen, the Netherlands.'
 ---
 ## About me
-I'm a web developer based in Nijmegen, the Netherlands. I'm currently employed as _tech team lead_ at [Coolblue](https://www.coolblue.nl), 
-one of the largest Dutch e-commerce companies.
+I'm a web developer based in Nijmegen, the Netherlands. I'm currently employed as backend developer at [Mijnwebwinkel](https://www.mijnwebwinkel.nl/), 
+a Dutch all-in-one e-commerce SaaS platform.
 
-Most of my development work is done with either [PHP](https://www.php.net/) or [TypeScript](https://www.typescriptlang.org/), but I'm no stranger to other languages and frameworks.
+Most of my development work is done with either [PHP](https://www.php.net/) and [Symfony](https://symfony.com/), but I'm no stranger to other languages and frameworks.
 
 In my spare time I'm an avid musician (electric guitar and the tuba) and runner.
 
