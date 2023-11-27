@@ -1,4 +1,3 @@
-
 html {
   font-size: var(--font-size);
   /*
@@ -24,11 +23,9 @@ img {
   display: block;
 }
 
-
 button {
   font: inherit;
 }
-
 
 .s-main {
   padding-top: 1.5rem;
@@ -47,6 +44,6 @@ button {
 }
 
 .s-box {
-  width: var(--grid-small);
+  width: var(--grid-medium);
   max-width: 100%;
 }
