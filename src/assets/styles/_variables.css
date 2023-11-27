@@ -32,6 +32,7 @@
 
   --blockquote-bg: rgba(0,0,0,.03);
 
+  --home-title-width: 580px;
 }
 
 @media screen and (prefers-color-scheme: dark) {

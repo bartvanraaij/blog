@@ -42,8 +42,3 @@ button {
 .s-container--wider {
   width: var(--grid-wide);
 }
-
-.s-box {
-  width: var(--grid-medium);
-  max-width: 100%;
-}

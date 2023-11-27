@@ -1,5 +1,8 @@
 .c-home__text {
 
+  width: var(--home-title-width);
+  max-width: 100%;
+
   margin-bottom: 2.5rem;
   p, h1 {
 
