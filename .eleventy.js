@@ -1,3 +1,4 @@
+const UpgradeHelper = require('@11ty/eleventy-upgrade-help');
 const htmlmin = require('html-minifier');
 const { DateTime } = require('luxon');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
@@ -16,6 +17,7 @@ const { minify } = require('terser');
 // };
 
 module.exports = function (eleventyConfig) {
+  //  eleventyConfig.addPlugin(UpgradeHelper);
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(pluginRss);
 
