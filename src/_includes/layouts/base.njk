@@ -7,6 +7,7 @@
     <title>{{ title or site.title }}</title>
     <meta name="description" content="{{ description or site.description }}" />
     <meta name="author" content="{{ site.author }}" />
+    <meta name="generator" content="{{ eleventy.generator }}">
 {#    {% include './meta.njk' %}#}
     {% include './assets.njk' %}
     <link type="application/atom+xml" rel="alternate" href="{{  '/feed.xml' |url }}" title="{{ site.title }}'s feed">
