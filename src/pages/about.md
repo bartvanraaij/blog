@@ -16,4 +16,4 @@ Feel free to look me up at:
 
 ## About this blog
 This blog is built with [Eleventy](https://www.11ty.dev) and served by [GitHub Pages](https://pages.github.com/). 
-You can check out the source code at [GitHub](https://github.com/bartvanraaij/blog).
+You can check out the source code on [GitHub](https://github.com/bartvanraaij/blog).
