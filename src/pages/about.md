@@ -7,7 +7,7 @@ I'm a software developer and engineering manager based in Sambeek, the Netherlan
 I'm currently employed as Lead Cloud and Web Developer at [AgXeed](https://www.agxeed.com/),
 a Dutch AgTech company building autonomous agricultural vehicles.
 
-Next to work I'm a father, musician (electric guitar, trumpet, tuba), DIY enthusiast, and Counter-Strike player (forever stuck in Silver).
+Next to work I'm a father, musician (electric guitar, trumpet, tuba), DIY enthusiast, runner and Counter-Strike player.
 
 ### Social
 Feel free to look me up at:
