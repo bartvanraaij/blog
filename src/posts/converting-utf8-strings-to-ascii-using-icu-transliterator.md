@@ -196,10 +196,6 @@ I won't get into details as to how this works because this article is long enoug
 ## Conclusion
 What can we conclude from this? I think the ICU Transliterator proves to be a valuable tool not only to convert text from one script to another but also to convert strings between character sets. Its output is more reliable than that of `iconv` and even far more extensive conversions are possible.
 
-Do you have any questions, comments or tips following this article? Feel free to reach out to me [on Twitter](https://twitter.com/bartvanraaij)!
-
-Thank you for reading my first-ever technical blog post. 😇
-
 ## Further reading and interesting links
 
 - ["Proper Name Transliteration with ICU Transforms"](https://research.google/pubs/pub36450/) — A research study by Sascha Brawer Martin Jansche Hiroshi Takenaka Yui Terashima (Google), presented at the 34th Internationalization & Unicode Conference in 2010;
