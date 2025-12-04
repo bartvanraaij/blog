@@ -101,8 +101,6 @@ This is because we only told the transliterator to convert Latin characters to A
 <p>I won’t get into details as to how this works because this article is long enough as it is. At this point I encourage you to read more about the ICU Transliterator and experiment with it yourself!</p>
 <h2 id="conclusion"><a class="anchor" href="https://bartvanraaij.dev/2020-10-17-converting-utf8-strings-to-ascii-using-icu-transliterator/#conclusion">#</a> Conclusion</h2>
 <p>What can we conclude from this? I think the ICU Transliterator proves to be a valuable tool not only to convert text from one script to another but also to convert strings between character sets. Its output is more reliable than that of <code>iconv</code> and even far more extensive conversions are possible.</p>
-<p>Do you have any questions, comments or tips following this article? Feel free to reach out to me <a href="https://twitter.com/bartvanraaij" target="_blank" rel="noopener">on Twitter</a>!</p>
-<p>Thank you for reading my first-ever technical blog post. 😇</p>
 <h2 id="further-reading-and-interesting-links"><a class="anchor" href="https://bartvanraaij.dev/2020-10-17-converting-utf8-strings-to-ascii-using-icu-transliterator/#further-reading-and-interesting-links">#</a> Further reading and interesting links</h2>
 <ul>
 <li><a href="https://research.google/pubs/pub36450/" target="_blank" rel="noopener">“Proper Name Transliteration with ICU Transforms”</a> — A research study by Sascha Brawer Martin Jansche Hiroshi Takenaka Yui Terashima (Google), presented at the 34th Internationalization &amp; Unicode Conference in 2010;</li>
