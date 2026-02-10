@@ -4,9 +4,8 @@ description: 'Bart van Raaij is a software developer based in the Netherlands.'
 ---
 ## About me
 I'm a software developer and engineering manager based in the Netherlands.
-I'm currently employed as Lead Cloud and Web Developer at [AgXeed](https://www.agxeed.com/),
-a Dutch AgTech company building autonomous agricultural vehicles.
-I work primarily on cloud architecture (Azure, Terraform), integrations (C# .NET) and real-world software problems.
+
+As Lead Cloud and Web Developer at [AgXeed](https://www.agxeed.com/), a Dutch AgTech company building autonomous agricultural vehicles, I combine hands-on development with leading the Cloud & Web team, focusing on cloud architecture (Azure), integrations (.NET) and solving real-world production problems. Earlier in my career, I worked at Coolblue and Mijnwebwinkel on large-scale e-commerce platforms using PHP (Symfony), AWS and engineering team leadership.
 
 Outside of work I'm a father, musician (electric guitar, trumpet, tuba), DIY enthusiast, runner and Counter-Strike player.
 
