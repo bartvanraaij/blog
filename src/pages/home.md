@@ -4,5 +4,4 @@ permalink: index.html
 ---
 
 
-Hi there 👋! Thanks for stopping by.  
-Check out my latest posts:
+# Bart van Raaij is a software developer based in the Netherlands.
