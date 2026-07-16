@@ -93,7 +93,8 @@
   .tcard p{margin:7px 0;font-size:13.7px}
   .tcard .attrs{width:100%;border-collapse:collapse;font-size:12.7px;margin-top:6px}
   .tcard .attrs td{border-top:1px solid var(--line);padding:6px 8px;vertical-align:top}
-  .tcard .attrs td:first-child{font-family:var(--mono);color:var(--text);white-space:nowrap;width:1%}
+  .tcard .attrs td.xlc{width:1%;padding-right:4px;white-space:nowrap}
+  .tcard .attrs td:nth-child(2){font-family:var(--mono);color:var(--text);white-space:nowrap;width:1%}
   .tcard .attrs td:last-child{color:var(--muted)}
   .tcard .xmlex{font-family:var(--mono);font-size:12px;background:var(--code-bg);border:1px solid var(--line);border-radius:7px;padding:10px 12px;overflow-x:auto;white-space:pre;margin:6px 0 0;line-height:1.6;color:var(--code-fg)}
   .keyfact{background:var(--bg2);border-left:3px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;color:var(--muted);margin-top:12px}
@@ -397,7 +398,7 @@ const TAGS = [
     plain:"The <b>DeviceObject</b> represents the entire machine or sensor system. There is exactly one per device descriptor object pool and its Object ID is always 0. It carries the identity of the device (its NAME, software version, serial number) and the <i>structure label</i> the Task Controller uses to tell whether its stored copy of the pool is still up to date.",
     key:"Exactly <b>one DVC per pool</b>, always <b>Object ID 0</b>. Everything else references back to it.",
     xmlEx:['&lt;DVC A="DVC-1"','     B="GreenField GF-24 Sprayer"','     C="4.02"','     D="A0 0C 00 00 12 34 56 78"','     E="GF24-2026-00417"&gt;','  ...','&lt;/DVC&gt;'],
-    attrs:[["Table ID","DVC (3-char namespace)"],["Object ID","0 (fixed)"],["Device designator","Human-readable name, max 32 chars"],["Software version","Version text"],["ClientNAME","8-byte NAME from ISO 11783-5"],["Serial number","Device/manufacturer serial"],["Structure label","7 bytes — identifies this pool version"],["Localization label","7 bytes — language & units context"]],
+    attrs:[["Table ID","DVC (3-char namespace)"],["DeviceId","xs:ID string — e.g. \"DVC-1\"","A"],["Device designator","Human-readable name, max 32 chars","B"],["Software version","Version text","C"],["ClientNAME","8-byte NAME from ISO 11783-5","D"],["Serial number","Device/manufacturer serial","E"],["Structure label","7 bytes — identifies this pool version","F"],["Localization label","7 bytes — language & units context","G"]],
     extra:`
       <div class="lvl">Labels &amp; caching</div>
       <p>The <b>structure label</b> (plus the optional <b>extended structure label</b>) identifies one version of the pool. On connect, the TC compares the label of its cached pool against the device's: if they match it reuses the cache, otherwise it re-requests the whole pool. Any change to the pool must change the label.</p>
@@ -408,7 +409,7 @@ const TAGS = [
     plain:"A <b>DeviceElementObject</b> is any addressable item on the device: the whole device, a function, a bin, a section, a unit (e.g. a single nozzle), a connector, or a navigation reference. DETs are chained by their <i>ParentObjectId</i> to build the physical hierarchy. Each DET lists the process data and properties available at that point via DOR references.",
     key:"DETs build the <b>hierarchy</b> via ParentObjectId. Exactly one DET is type <b>device</b> (element number 0) and is the root.",
     xmlEx:['&lt;DET A="DET102" B="102" C="2"','     D="Liquid application"','     E="2" F="100"&gt;','  &lt;DOR A="203"/&gt;','  &lt;DOR A="204"/&gt;','&lt;/DET&gt;'],
-    attrs:[["Table ID","DET"],["Object ID","1–65534, unique"],["DeviceElementType","1=device, 2=function, 3=bin, 4=section, 5=unit, 6=connector, 7=navigation"],["Designator","Name of the element, max 32 chars"],["Element number","0–4095, for process-data addressing"],["ParentObjectId","Object ID of parent DET (or the DVC)"],["Object references","List of DOR → DPD / DPT"]],
+    attrs:[["Table ID","DET"],["DeviceElementId","xs:ID string — e.g. \"DET102\"","A"],["Object ID","1–65534, unique","B"],["DeviceElementType","1=device, 2=function, 3=bin, 4=section, 5=unit, 6=connector, 7=navigation","C"],["Designator","Name of the element, max 32 chars","D"],["Element number","0–4095, for process-data addressing","E"],["ParentObjectId","Object ID of parent DET (or the DVC)","F"],["Object references","List of DOR → DPD / DPT"]],
     extra:`
       <div class="lvl">Element types (attribute C)</div>
       <table class="attrs">
@@ -425,7 +426,7 @@ const TAGS = [
     plain:"A <b>DeviceProcessDataObject</b> defines one process data variable — a value that can change while the machine works, such as actual application rate, work state, or a total. It can be marked <i>settable</i> (the TC may command it, e.g. a setpoint) or a <i>control source</i>, and it advertises which measurement <i>trigger methods</i> it supports (time interval, distance, threshold, on-change, total).",
     key:"DPD = <b>dynamic</b>. It carries a <b>DDI</b> (what it is) and may reference a <b>DVP</b> (how to display). Settable and control-source are mutually exclusive.",
     xmlEx:['&lt;DPD A="203" B="0x0002"','     C="settable" D="onChange"','     E="Setpoint Application Rate"','     F="302"/&gt;'],
-    attrs:[["Table ID","DPD"],["Object ID","1–65534, unique"],["Process data DDI","The dictionary code — what this value means"],["Properties","bitset: default set / settable / control source"],["Trigger methods","bitset: time / distance / threshold / on-change / total"],["Designator","Name, max 32 chars"],["DVP object ID","Reference to a DeviceValuePresentation (or NULL)"]],
+    attrs:[["Table ID","DPD"],["Object ID","1–65534, unique","A"],["Process data DDI","The dictionary code — what this value means","B"],["Properties","bitset: default set / settable / control source","C"],["Trigger methods","bitset: time / distance / threshold / on-change / total","D"],["Designator","Name, max 32 chars","E"],["DVP object ID","Reference to a DeviceValuePresentation (or NULL)","F"]],
     extra:`
       <div class="lvl">Properties (bit field)</div>
       <table class="attrs">
@@ -447,12 +448,12 @@ const TAGS = [
     plain:"A <b>DevicePropertyObject</b> defines one property — a value that does <i>not</i> change during operation, such as a fixed geometric offset or a connector type. Unlike a DPD, it stores the actual value inside the object. Use a DPT when a value is a constant of the device; use a DPD when it can vary.",
     key:"DPT = <b>fixed</b>. Same DDI + DVP mechanism as DPD, but it holds a stored <b>Property value</b> instead of trigger methods.",
     xmlEx:['&lt;DPT A="213" B="0x0043"','     C="6000"','     D="Section Working Width"','     E="301"/&gt;'],
-    attrs:[["Table ID","DPT"],["Object ID","1–65534, unique"],["Property DDI","The dictionary code — what this value means"],["Property value","Signed 32-bit — the actual stored value"],["Designator","Name, max 32 chars"],["DVP object ID","Reference to a DeviceValuePresentation (or NULL)"]] },
+    attrs:[["Table ID","DPT"],["Object ID","1–65534, unique","A"],["Property DDI","The dictionary code — what this value means","B"],["Property value","Signed 32-bit — the actual stored value","C"],["Designator","Name, max 32 chars","D"],["DVP object ID","Reference to a DeviceValuePresentation (or NULL)","E"]] },
   { id:"DVP", color:"var(--dvpc)", name:"DeviceValuePresentation", bracket:true, one:"Units, scale and decimals for display",
-    plain:"A <b>DeviceValuePresentationObject</b> holds the presentation information used to display a DPD or DPT value to the operator: an <i>offset</i>, a <i>scale</i>, the number of <i>decimals</i>, and a <i>unit designator</i>. Displayed value = (raw value + offset) × scale. The device can update these when the operator changes language or units.",
-    key:"DVP is <b>optional</b> and <b>shared</b>: many DPD/DPT objects can point at the same DVP. It has no children of its own.",
+    plain:"A <b>DeviceValuePresentationObject</b> holds display metadata — offset, scale, decimals and a unit designator — used to render a DPD or DPT value for the operator. A DPD or DPT opts in by referencing the DVP's Object ID in its own F/E attribute; the DVP itself references nothing. Because DVP is shared, one DVP can serve many DPD/DPT objects, so the full chain is: <b>DET → DOR → DPD/DPT → DVP</b>.",
+    key:"DVP is <b>pointed to</b>, never pointing. A DPD/DPT opts in by listing the DVP's Object ID in its own F/E attribute. DVP has no Object references of its own.",
     xmlEx:['&lt;DVP A="302" B="0"','     C="0.01" D="1"','     E="L/ha"/&gt;'],
-    attrs:[["Table ID","DVP"],["Object ID","1–65534, unique"],["Offset","Signed 32-bit, added before scaling"],["Scale","Float multiplier"],["Number of decimals","0–7"],["Unit designator","e.g. \"L/ha\", \"m\", \"s\""]],
+    attrs:[["Table ID","DVP"],["Object ID","1–65534, unique","A"],["Offset","Signed 32-bit, added before scaling","B"],["Scale","Float multiplier","C"],["Number of decimals","0–7","D"],["Unit designator","e.g. \"L/ha\", \"m\", \"s\"","E"]],
     extra:`
       <div class="lvl">Presentation formula</div>
       <p><code class="k">displayed = (raw + offset) × scale</code>, rounded to <i>decimals</i> places and shown with the unit designator. The raw integer stays on the wire; the DVP only affects display. The device may rewrite DVP objects when the operator changes language or unit system.</p>` },
@@ -460,7 +461,7 @@ const TAGS = [
     plain:"A <b>DeviceObjectReference</b> is not a thing in itself — it is a reference. It lives inside a DeviceElement and points, by Object ID, to a DeviceProcessData or DeviceProperty object. This is the mechanism that says <i>“this part of the machine offers this value.”</i> In XML it looks like <span class=\"pill\">&lt;DOR A=\"3\"/&gt;</span>.",
     key:"DOR is the <b>glue</b> between a DET and its values. In the binary form it's simply the DET's list of referenced Object IDs.",
     xmlEx:['&lt;!-- nested inside a &lt;DET&gt; --&gt;','&lt;DOR A="203"/&gt;'],
-    attrs:[["XML element","DOR, nested inside a DET"],["DeviceObjectId (A)","Object ID of the DPD or DPT being referenced"]] },
+    attrs:[["XML element","DOR, nested inside a DET"],["DeviceObjectId","Object ID of the target DPD or DPT (not a DET or DVP)","A"]] },
   { id:"DDI", color:"var(--ddi)", name:"Data Dictionary Identifier", bracket:false, one:"A dictionary code for what a value means",
     plain:"A <b>DDI</b> (Data Dictionary Identifier) is a 2-byte code defined in the ISOBUS Data Dictionary (ISO 11783-11). It is <i>not</i> an object in the pool — it's a label carried by DPD and DPT objects. The DDI is what lets a Task Controller from one manufacturer understand a device from another: 141 always means Actual Work State, 134 always means Offset X, and so on.",
     key:"DDI is a <b>shared vocabulary</b>, not an object. It answers <i>“what is this value?”</i> — the DPD/DPT answers <i>“and my device supports it, here, like this.”</i>",
@@ -473,7 +474,7 @@ const grid = document.getElementById('cardGrid');
 TAGS.forEach(t=>{
   const el = document.createElement('div');
   el.className='tcard';
-  const attrRows = t.attrs.map(a=>`<tr><td>${a[0]}</td><td>${a[1]}</td></tr>`).join('');
+  const attrRows = t.attrs.map(a=>`<tr><td class="xlc">${a[2]?'<span class="xlk">'+a[2]+'</span>':''}</td><td>${a[0]}</td><td>${a[1]}</td></tr>`).join('');
   const chipLabel = t.bracket ? `&lt;${t.id}&gt;` : t.id;
   el.innerHTML = `
     <div class="head">
