@@ -472,9 +472,9 @@ const OBJ = {
         attrs:{'Table ID':'DET','Object ID':'100','DeviceElementType':'1 = device','Element number':'0','ParentObjectId':'0 (the DVC)'},
         desc:'The mandatory root device element of type "device". Holds device-wide values: total time, overall work state, the device reference-point offsets and the maximum working width.'},
   101: {kind:'DET', id:101, dtype:6, name:'Rear hitch connector', parent:100,
-        dor:[210,211,212],
+        dor:[215,216,212],
         attrs:{'Table ID':'DET','Object ID':'101','DeviceElementType':'6 = connector','Element number':'1','ParentObjectId':'100'},
-        desc:'A connector element defining where the implement attaches to the tractor. TC-GEO needs this to know the geometry. Note it reuses the same Offset X / Offset Y properties as the root — one object, referenced twice.'},
+        desc:'A connector element defining where the implement attaches to the tractor. TC-GEO needs its geometry. The connector sits at a different point than the device reference point, so it carries its own Offset X/Y objects (215/216) rather than reusing the root’s.'},
   102: {kind:'DET', id:102, dtype:2, name:'Liquid application', parent:100,
         dor:[203,204,205,206],
         attrs:{'Table ID':'DET','Object ID':'102','DeviceElementType':'2 = function','Element number':'2','ParentObjectId':'100'},
@@ -482,11 +482,11 @@ const OBJ = {
   103: {kind:'DET', id:103, dtype:4, name:'Section 1', parent:102,
         dor:[207,213,214],
         attrs:{'Table ID':'DET','Object ID':'103','DeviceElementType':'4 = section','Element number':'3','ParentObjectId':'102'},
-        desc:'A boom section. Sections can be switched on/off individually and carry their own work state and geometry (working width, offset).'},
+        desc:'A boom section. Sections switch on/off individually. It carries the shared Work State (207) and Working Width (213), plus its own lateral Offset Y (214) — its position on the boom.'},
   104: {kind:'DET', id:104, dtype:4, name:'Section 2', parent:102,
-        dor:[207,213,214],
+        dor:[207,213,217],
         attrs:{'Table ID':'DET','Object ID':'104','DeviceElementType':'4 = section','Element number':'4','ParentObjectId':'102'},
-        desc:'A second boom section. It references the very same work-state and geometry objects as Section 1 — a clear example of DPD/DPT objects being shared across multiple DETs.'},
+        desc:'The second boom section. It shares the Work State (207) and Working Width (213) with Section 1 — correct DPD/DPT reuse — but has its own lateral Offset Y (217), because it sits at a different point on the boom.'},
   105: {kind:'DET', id:105, dtype:5, name:'Nozzle 1', parent:103,
         dor:[207],
         attrs:{'Table ID':'DET','Object ID':'105','DeviceElementType':'5 = unit','Element number':'5','ParentObjectId':'103'},
@@ -508,9 +508,9 @@ const OBJ = {
   204: {kind:'DPD', id:204, ddi:1, ddiName:'Actual Application Rate', name:'Actual Application Rate', settable:false,
         attrs:{'Table ID':'DPD','Object ID':'204','DDI':'1 (Actual Volume/Area Rate)','Properties':'default set','Trigger methods':'time interval, on change','DVP object ID':'302'}, dvp:302,
         desc:'The rate the machine is actually applying. Shares DVP 302 (L/ha) with the setpoint above.'},
-  205: {kind:'DPD', id:205, ddi:5, ddiName:'Total Volume', name:'Total Volume', settable:false,
-        attrs:{'Table ID':'DPD','Object ID':'205','DDI':'5 (Total Volume)','Properties':'total','Trigger methods':'total','DVP object ID':'303'}, dvp:303,
-        desc:'Total product volume applied by this function.'},
+  205: {kind:'DPD', id:205, ddi:116, ddiName:'Total Area', name:'Total Area', settable:false,
+        attrs:{'Table ID':'DPD','Object ID':'205','DDI':'116 (Total Area)','Properties':'total','Trigger methods':'total','DVP object ID':'303'}, dvp:303,
+        desc:'Total area treated by this function. (Was DDI 5 “Total Volume” — but DDI 5 is actually Maximum Volume/Area Rate, so this uses 116 Total Area, a real spec-cited total.)'},
   206: {kind:'DPD', id:206, ddi:158, ddiName:'Prescription Control State', name:'Prescription Control State', settable:true,
         attrs:{'Table ID':'DPD','Object ID':'206','DDI':'158 (Prescription Control State)','Properties':'settable','Trigger methods':'on change','DVP object ID':'NULL'}, dvp:null,
         desc:'Enables/disables prescription (map-based) control. Settable and reported on change, per the TC-GEO rules.'},
@@ -521,19 +521,28 @@ const OBJ = {
   // ---- DPT (fixed values) ----
   210: {kind:'DPT', id:210, ddi:134, ddiName:'Device Element Offset X', name:'Offset X', value:0,
         attrs:{'Table ID':'DPT','Object ID':'210','DDI':'134 (Offset X)','Property value':'0','DVP object ID':'301'}, dvp:301,
-        desc:'A fixed X offset from the device reference point. Constant, so it is a property (DPT), not process data. Referenced by both the root device element and the connector.'},
+        desc:'The root device element’s X offset — the device reference point, at the origin. Constant, so it is a property (DPT), not process data.'},
   211: {kind:'DPT', id:211, ddi:135, ddiName:'Device Element Offset Y', name:'Offset Y', value:0,
         attrs:{'Table ID':'DPT','Object ID':'211','DDI':'135 (Offset Y)','Property value':'0','DVP object ID':'301'}, dvp:301,
-        desc:'A fixed Y offset. Also shared between the root device element and the connector.'},
+        desc:'The root device element’s Y offset, at the origin.'},
   212: {kind:'DPT', id:212, ddi:157, ddiName:'Connector Type', name:'Connector Type', value:2,
         attrs:{'Table ID':'DPT','Object ID':'212','DDI':'157 (Connector Type)','Property value':'2 (e.g. rear 3-point hitch)','DVP object ID':'NULL (enumerated)'}, dvp:null,
         desc:'Which kind of connection this connector is. A constant enumerated property.'},
+  215: {kind:'DPT', id:215, ddi:134, ddiName:'Device Element Offset X', name:'Connector Offset X', value:-1200,
+        attrs:{'Table ID':'DPT','Object ID':'215','DDI':'134 (Offset X)','Property value':'-1200','DVP object ID':'301'}, dvp:301,
+        desc:'The rear hitch’s own X offset: 1200 mm behind the device reference point. A distinct object from the root’s Offset X because it holds a different value.'},
+  216: {kind:'DPT', id:216, ddi:135, ddiName:'Device Element Offset Y', name:'Connector Offset Y', value:0,
+        attrs:{'Table ID':'DPT','Object ID':'216','DDI':'135 (Offset Y)','Property value':'0','DVP object ID':'301'}, dvp:301,
+        desc:'The rear hitch’s own Y offset, centred (0). Its own object, kept separate from the root’s Offset Y.'},
   213: {kind:'DPT', id:213, ddi:67, ddiName:'Actual Working Width', name:'Section Working Width', value:6000,
         attrs:{'Table ID':'DPT','Object ID':'213','DDI':'67 (Working Width)','Property value':'6000','DVP object ID':'301'}, dvp:301,
         desc:'The working width of a section (6000 mm = 6 m). Fixed for this device, so modelled as a property.'},
-  214: {kind:'DPT', id:214, ddi:134, ddiName:'Device Element Offset X', name:'Section Offset X', value:3000,
-        attrs:{'Table ID':'DPT','Object ID':'214','DDI':'134 (Offset X)','Property value':'3000','DVP object ID':'301'}, dvp:301,
-        desc:'The X offset of a section relative to the device reference point.'},
+  214: {kind:'DPT', id:214, ddi:135, ddiName:'Device Element Offset Y', name:'Section 1 Offset Y', value:-3000,
+        attrs:{'Table ID':'DPT','Object ID':'214','DDI':'135 (Offset Y)','Property value':'-3000','DVP object ID':'301'}, dvp:301,
+        desc:'Section 1’s lateral (Y) position: 3000 mm left of the boom centre. In ISOBUS the across-boom axis is Y, so sections differ in Offset Y, not X.'},
+  217: {kind:'DPT', id:217, ddi:135, ddiName:'Device Element Offset Y', name:'Section 2 Offset Y', value:3000,
+        attrs:{'Table ID':'DPT','Object ID':'217','DDI':'135 (Offset Y)','Property value':'3000','DVP object ID':'301'}, dvp:301,
+        desc:'Section 2’s lateral (Y) position: 3000 mm right of centre. Its own distinct object, because it holds a different value from Section 1.'},
 
   // ---- DVP (presentation) ----
   300: {kind:'DVP', id:300, name:'DVP — hours', unit:'h',
@@ -545,9 +554,9 @@ const OBJ = {
   302: {kind:'DVP', id:302, name:'DVP — litres per hectare', unit:'L/ha',
         attrs:{'Table ID':'DVP','Object ID':'302','Offset':'0','Scale':'0.01','Decimals':'1','Unit':'L/ha'},
         desc:'Presents a rate value. Shared by both the setpoint and the actual application rate.'},
-  303: {kind:'DVP', id:303, name:'DVP — litres', unit:'L',
-        attrs:{'Table ID':'DVP','Object ID':'303','Offset':'0','Scale':'0.1','Decimals':'1','Unit':'L'},
-        desc:'Presents a total volume in litres.'},
+  303: {kind:'DVP', id:303, name:'DVP — hectares', unit:'ha',
+        attrs:{'Table ID':'DVP','Object ID':'303','Offset':'0','Scale':'0.0001','Decimals':'2','Unit':'ha'},
+        desc:'Presents a total area (m²) in hectares.'},
 };
 
 // hierarchy of DETs (by Object ID)
@@ -683,7 +692,7 @@ function makeSeparator(text){
 
 // assemble: DVC → [DET hierarchy] + [pool objects: DPD, DPT, DVP]
 const DPD_IDS=[200,201,202,203,204,205,206,207];
-const DPT_IDS=[210,211,212,213,214];
+const DPT_IDS=[210,211,212,215,216,213,214,217];
 const DVP_IDS=[300,301,302,303];
 const dvcChildNodes = [ makeDETNode(100), makeSeparator('pool objects — referenced above via DOR') ];
 DPD_IDS.forEach(id=>dvcChildNodes.push(makeValuePoolNode(id)));
@@ -744,8 +753,8 @@ function linkItem(objId, label){
 
 // XML attribute letters per object kind (from ISO 11783-10 Annex D), keyed by attribute name
 const XLETTER = {
-  DVC:{'Designator':'B','Software version':'C','ClientNAME':'D','Serial number':'E','Structure label':'F'},
-  DET:{'Object ID':'B','DeviceElementType':'C','Designator':'D','Element number':'E','ParentObjectId':'F'},
+  DVC:{'DeviceId':'A','Designator':'B','Software version':'C','ClientNAME':'D','Serial number':'E','Structure label':'F'},
+  DET:{'DeviceElementId':'A','Object ID':'B','DeviceElementType':'C','Designator':'D','Element number':'E','ParentObjectId':'F'},
   DPD:{'Object ID':'A','DDI':'B','Properties':'C','Trigger methods':'D','Designator':'E','DVP object ID':'F'},
   DPT:{'Object ID':'A','DDI':'B','Property value':'C','Designator':'D','DVP object ID':'E'},
   DVP:{'Object ID':'A','Offset':'B','Scale':'C','Decimals':'D','Unit':'E'},
@@ -797,6 +806,8 @@ function renderDetail(){
   // the designator is a real attribute (shown as the title too); add it for kinds that carry one
   const entries = Object.entries(o.attrs);
   if(o.kind==='DET'||o.kind==='DPD'||o.kind==='DPT') entries.push(['Designator', o.name]);
+  if(o.kind==='DET') entries.push(['DeviceElementId', 'DET'+o.id]);   // attribute A (xs:ID)
+  if(o.kind==='DVC') entries.push(['DeviceId', 'DVC-1']);             // attribute A (xs:ID)
   const rankOf = k => k==='Table ID' ? '0' : (xl[k]||'Z');
   entries.sort((a,b)=> rankOf(a[0]) < rankOf(b[0]) ? -1 : rankOf(a[0]) > rankOf(b[0]) ? 1 : 0);
   const rows = entries.map(([k,v])=>{
