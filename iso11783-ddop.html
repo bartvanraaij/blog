@@ -727,8 +727,10 @@ function select(id, source){
   selHint.textContent = `${o.kind} · Object ID ${o.id}`;
   renderDetail();
   const scroll=(el)=>{ if(el && el.scrollIntoView) el.scrollIntoView({block:'nearest'}); };
-  if(source!=='tree') scroll(document.querySelector(`.tree .row[data-id="${id}"]`));
-  if(source!=='xml')  scroll(document.querySelector(`#xmlView .xnode[data-id="${id}"]`));
+  if(source!=='init'){
+    if(source!=='tree') scroll(document.querySelector(`.tree .row[data-id="${id}"]`));
+    if(source!=='xml')  scroll(document.querySelector(`#xmlView .xnode[data-id="${id}"]`));
+  }
 }
 // used by inspector link buttons
 function selectObj(id){ select(id, null); }
@@ -871,7 +873,7 @@ themeToggle.addEventListener('click',()=>{ document.documentElement.classList.to
 
 /* init */
 xmlView.innerHTML = buildFullXml();
-select(0, null);
+select(0, 'init');
 </script>
 </body>
 </html>
