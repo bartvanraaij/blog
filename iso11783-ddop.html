@@ -423,7 +423,7 @@ const TAGS = [
       </table>
       <div class="keyfact"><b>Placement.</b> <i>connector</i> and <i>navigation</i> elements may only sit directly below the root device element.</div>` },
   { id:"DPD", color:"var(--dpd)", name:"DeviceProcessData", bracket:true, one:"A value that changes during operation",
-    plain:"A <b>DeviceProcessDataObject</b> defines one process data variable — a value that can change while the machine works, such as actual application rate, work state, or a total. It can be marked <i>settable</i> (the TC may command it, e.g. a setpoint) or a <i>control source</i>, and it advertises which measurement <i>trigger methods</i> it supports (time interval, distance, threshold, on-change, total).",
+    plain:"A <b>DeviceProcessDataObject</b> is a <i>capability declaration</i> — it says 'my device can report this measurement'. It does not hold or transmit a value itself. A DPT carries a fixed value; a DPD only describes what kind of value is available and how it can be triggered. The actual measured values are logged as <b>DLV</b> objects in the time log, triggered by <b>DLT</b> objects in the task data — both outside the DDOP.",
     key:"DPD = <b>dynamic</b>. It carries a <b>DDI</b> (what it is) and may reference a <b>DVP</b> (how to display). Settable and control-source are mutually exclusive.",
     xmlEx:['&lt;DPD A="203" B="0x0002"','     C="settable" D="onChange"','     E="Setpoint Application Rate"','     F="302"/&gt;'],
     attrs:[["Table ID","DPD"],["Object ID","1–65534, unique","A"],["Process data DDI","The dictionary code — what this value means","B"],["Properties","bitset: default set / settable / control source","C"],["Trigger methods","bitset: time / distance / threshold / on-change / total","D"],["Designator","Name, max 32 chars","E"],["DVP object ID","Reference to a DeviceValuePresentation (or NULL)","F"]],
@@ -449,14 +449,21 @@ const TAGS = [
     key:"DPT = <b>fixed</b>. Same DDI + DVP mechanism as DPD, but it holds a stored <b>Property value</b> instead of trigger methods.",
     xmlEx:['&lt;DPT A="213" B="0x0043"','     C="6000"','     D="Section Working Width"','     E="301"/&gt;'],
     attrs:[["Table ID","DPT"],["Object ID","1–65534, unique","A"],["Property DDI","The dictionary code — what this value means","B"],["Property value","Signed 32-bit — the actual stored value","C"],["Designator","Name, max 32 chars","D"],["DVP object ID","Reference to a DeviceValuePresentation (or NULL)","E"]] },
-  { id:"DVP", color:"var(--dvpc)", name:"DeviceValuePresentation", bracket:true, one:"Units, scale and decimals for display",
-    plain:"A <b>DeviceValuePresentationObject</b> holds display metadata — offset, scale, decimals and a unit designator — used to render a DPD or DPT value for the operator. A DPD or DPT opts in by referencing the DVP's Object ID in its own F/E attribute; the DVP itself references nothing. Because DVP is shared, one DVP can serve many DPD/DPT objects, so the full chain is: <b>DET → DOR → DPD/DPT → DVP</b>.",
-    key:"DVP is <b>pointed to</b>, never pointing. A DPD/DPT opts in by listing the DVP's Object ID in its own F/E attribute. DVP has no Object references of its own.",
+  { id:"DVP", color:"var(--dvpc)", name:"DeviceValuePresentation", bracket:true, one:"Display format: unit, scale factor, and decimal places for a value",
+    plain:"A <b>DeviceValuePresentationObject</b> defines how to display a raw integer value — nothing more. It carries no measurements, no semantic meaning, and no links to other objects. It only answers: <i>given a raw integer, how should the display software present it?</i> The formula is <code>(raw + offset) × scale</code>, rounded to <i>decimals</i> places and suffixed with the unit string. A DPD or DPT opts in by listing the DVP's Object ID in its own F/E attribute; the DVP itself points to nothing. The 'Value' in the name refers to <i>the value's presentation</i>, not to DVP being a value.",
+    key:"DVP carries <b>no measurements</b> — it only tells the UI how to format a number. Do not confuse with <b>DLV</b> (DataLogValue, in time-log files) or <b>DLT</b> (DataLogTrigger, in task data) — those are different objects in a different layer.",
     xmlEx:['&lt;DVP A="302" B="0"','     C="0.01" D="1"','     E="L/ha"/&gt;'],
     attrs:[["Table ID","DVP"],["Object ID","1–65534, unique","A"],["Offset","Signed 32-bit, added before scaling","B"],["Scale","Float multiplier","C"],["Number of decimals","0–7","D"],["Unit designator","e.g. \"L/ha\", \"m\", \"s\"","E"]],
     extra:`
       <div class="lvl">Presentation formula</div>
-      <p><code class="k">displayed = (raw + offset) × scale</code>, rounded to <i>decimals</i> places and shown with the unit designator. The raw integer stays on the wire; the DVP only affects display. The device may rewrite DVP objects when the operator changes language or unit system.</p>` },
+      <p><code class="k">displayed = (raw + offset) × scale</code>, rounded to <i>decimals</i> places and shown with the unit designator. The raw integer stays on the wire; the DVP only affects display. The device may rewrite DVP objects when the operator changes language or unit system.</p>
+      <div class="lvl">Three layers — DDOP, Task, Log</div>
+      <p>The DDOP (this object pool) only declares <i>capability</i> and <i>display</i>. The actual measurement lifecycle spans three separate layers:</p>
+      <table class="attrs">
+        <tr><td>DDOP</td><td><b>DPD</b> declares a value can be reported, <b>DVP</b> says how to display it.</td></tr>
+        <tr><td>Task data</td><td><b>DLT</b> (DataLogTrigger) tells the TC: <i>log this DDI at this interval during this task.</i></td></tr>
+        <tr><td>Time log</td><td><b>DLV</b> (DataLogValue) is the actual recorded measurement: DDI + raw value + device element.</td></tr>
+      </table>` },
   { id:"DOR", color:"var(--dor)", name:"DeviceObjectReference", bracket:true, one:"A pointer from a DET to a DPD/DPT",
     plain:"A <b>DeviceObjectReference</b> is not a thing in itself — it is a reference. It lives inside a DeviceElement and points, by Object ID, to a DeviceProcessData or DeviceProperty object. This is the mechanism that says <i>“this part of the machine offers this value.”</i> In XML it looks like <span class=\"pill\">&lt;DOR A=\"3\"/&gt;</span>.",
     key:"DOR is the <b>glue</b> between a DET and its values. In the binary form it's simply the DET's list of referenced Object IDs.",
