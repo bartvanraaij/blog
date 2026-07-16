@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISO 11783-10 Device Descriptor Object Pool — Interactive Explainer</title>
+<style>
+  :root{
+    --bg:#0f1420; --bg2:#151c2c; --panel:#1b2437; --panel2:#212c44;
+    --line:#2c3a56; --text:#e7ecf5; --muted:#98a6c0; --muted2:#6f7f9e;
+    --dvc:#8b7cf6; --det:#4aa3ff; --dpd:#2fd6a5; --dpt:#f5b13d;
+    --dor:#8a97b3; --ddi:#e05fb0;
+    --dvpc:#22cfe0;
+    --chip-fg:#0d111b;
+    --page-bg:linear-gradient(180deg,#0d111b,#0f1420 40%);
+    --hero-glow:rgba(139,124,246,.18);
+    --code-bg:#0c101a; --code-fg:#cdd7ec;
+    --xtag:#7fd3ff; --xattr:#f5b13d; --xval:#8fe6bf; --xcomment:#5f7192;
+    --switch-track:#2b3752; --switch-knob:#c4cfe4;
+    --radius:12px; --shadow:0 8px 30px rgba(0,0,0,.35);
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  html.light{
+    --bg:#eef2f8; --bg2:#e7ecf4; --panel:#ffffff; --panel2:#eef2f8;
+    --line:#d5dce8; --text:#1a2233; --muted:#556072; --muted2:#8792a6;
+    --dvc:#6d54e0; --det:#1f7ae0; --dpd:#0f9e78; --dpt:#c07d0a;
+    --dor:#5f6b82; --ddi:#c23a97; --dvpc:#0f9db0;
+    --chip-fg:#ffffff;
+    --page-bg:linear-gradient(180deg,#f7f9fc,#eef2f8 40%);
+    --hero-glow:rgba(139,124,246,.12);
+    /* GitHub-light code theme */
+    --code-bg:#ffffff; --code-fg:#1f2328;
+    --xtag:#116329; --xattr:#0550ae; --xval:#0a3069; --xcomment:#6e7781;
+    --switch-track:#cbd4e3; --switch-knob:#ffffff;
+    --shadow:0 8px 26px rgba(30,42,66,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--page-bg);color:var(--text);
+    font-family:var(--sans);line-height:1.55;font-size:15px;-webkit-font-smoothing:antialiased}
+  a{color:var(--det)}
+  .wrap{max-width:1720px;margin:0 auto;padding:0 28px}
+  header.hero{padding:54px 22px 30px;text-align:center;border-bottom:1px solid var(--line);
+    background:radial-gradient(1200px 400px at 50% -80px,var(--hero-glow),transparent)}
+  .theme-switch{position:fixed;top:14px;right:16px;z-index:50;width:58px;height:30px;padding:0;
+    border:1px solid var(--line);border-radius:999px;background:var(--switch-track);cursor:pointer;
+    box-shadow:var(--shadow)}
+  .theme-switch:hover{border-color:var(--muted2)}
+  .ts-ico{position:absolute;top:0;height:28px;width:28px;display:flex;align-items:center;
+    justify-content:center;color:var(--muted);pointer-events:none}
+  .ts-moon{left:0}
+  .ts-sun{right:0}
+  .ts-ico svg{width:14px;height:14px}
+  .ts-knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;
+    background:var(--switch-knob);box-shadow:0 1px 4px rgba(0,0,0,.5);transition:left .2s ease;pointer-events:none}
+  html.light .ts-knob{left:33px;box-shadow:0 1px 4px rgba(30,42,66,.3)}
+  .hero .kicker{letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:var(--muted);font-weight:600}
+  .hero h1{font-size:clamp(26px,4vw,40px);margin:.35em 0 .2em;line-height:1.12}
+  .hero p.sub{max-width:720px;margin:12px auto 0;color:var(--muted);font-size:16px}
+  .hero .src{margin-top:16px;font-size:12.5px;color:var(--muted2)}
+  section{padding:46px 0}
+  section h2{font-size:24px;margin:0 0 6px}
+  section .lead{color:var(--muted);max-width:760px;margin:0 0 26px}
+  .divider{height:1px;background:var(--line);opacity:.6}
+
+  /* ONE-LINER MODEL */
+  .model{display:flex;flex-wrap:wrap;gap:14px;align-items:stretch}
+  .model .card{flex:1 1 150px;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:16px 16px 15px;position:relative;overflow:hidden}
+  .model .card .tag{font-family:var(--mono);font-weight:700;font-size:15px}
+  .model .card .role{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .model .card .plain{font-size:13.5px;margin-top:9px;color:var(--text)}
+  .model .card .stripe{position:absolute;left:0;top:0;bottom:0;width:5px}
+
+  /* CHEAT SHEET (expandable) */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+  .tcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;transition:border-color .15s, box-shadow .15s}
+  .tcard:hover{border-color:var(--muted2)}
+  .tcard .head{display:flex;gap:13px;align-items:center;padding:15px 16px;cursor:pointer;user-select:none}
+  .chip{font-family:var(--mono);font-weight:700;font-size:14px;padding:5px 9px;border-radius:8px;
+    color:var(--chip-fg);white-space:nowrap;flex-shrink:0}
+  .tcard .titles{flex:1;min-width:0}
+  .tcard .titles .xml{font-weight:600;font-size:15px}
+  .tcard .titles .one{font-size:13px;color:var(--muted);margin-top:1px}
+  .tcard .caret{color:var(--muted2);transition:transform .2s;flex-shrink:0}
+  .tcard.open .caret{transform:rotate(90deg)}
+  .tcard .body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .tcard .body-inner{padding:0 16px 17px;border-top:1px solid var(--line);margin-top:0}
+  .tcard .body-inner > *:first-child{margin-top:14px}
+  .tcard .lvl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);font-weight:700;margin:14px 0 5px}
+  .tcard p{margin:7px 0;font-size:13.7px}
+  .tcard .attrs{width:100%;border-collapse:collapse;font-size:12.7px;margin-top:6px}
+  .tcard .attrs td{border-top:1px solid var(--line);padding:6px 8px;vertical-align:top}
+  .tcard .attrs td:first-child{font-family:var(--mono);color:var(--text);white-space:nowrap;width:1%}
+  .tcard .attrs td:last-child{color:var(--muted)}
+  .keyfact{background:var(--bg2);border-left:3px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;color:var(--muted);margin-top:12px}
+  .keyfact b{color:var(--text)}
+
+  /* LINK RULES */
+  .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+  .rule{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:15px 16px}
+  .rule .n{font-family:var(--mono);color:var(--muted2);font-size:12px}
+  .rule .t{font-weight:600;margin:3px 0 5px;font-size:14.5px}
+  .rule p{margin:0;font-size:13.3px;color:var(--muted)}
+  code.k{font-family:var(--mono);background:var(--bg2);padding:1px 6px;border-radius:5px;font-size:12.5px;color:var(--text)}
+
+  /* DIAGRAM */
+  .diagram-wrap{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 18px;display:flex;justify-content:center}
+  .diagram-wrap svg{width:100%;max-width:720px;height:auto}
+  .dg-code{font-family:var(--mono);font-weight:700;font-size:15px;fill:var(--text)}
+  .dg-role{font-size:10.5px;fill:var(--muted)}
+  .dg-elabel{font-size:11px;fill:var(--muted)}
+  .dg-elabel.on{fill:var(--text);font-weight:600}
+  .legend2{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:16px;font-size:12.5px;color:var(--muted)}
+  .legend2 span.li2{display:inline-flex;align-items:center}
+  .legend2 .ln{display:inline-block;width:20px;height:0;vertical-align:middle;margin-right:8px}
+
+  /* EXPLORER */
+  .explorer{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:16px;align-items:stretch;height:90vh;min-height:540px}
+  @media(max-width:1150px){.explorer{grid-template-columns:1fr;height:auto}
+    .tree,.xmlfull,#detailArea{max-height:72vh}}
+  .exp-col{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    display:flex;flex-direction:column;min-height:0}
+  .exp-col .colhead{flex:0 0 auto;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;
+    align-items:center;justify-content:space-between;gap:10px;background:var(--bg2)}
+  .exp-col .colhead .h{font-weight:600;font-size:14px}
+  .exp-col .colhead .sm{font-size:12px;color:var(--muted2)}
+  .tree{flex:1 1 auto;min-height:0;padding:12px 10px 16px;font-size:14px;overflow:auto}
+  #detailArea{flex:1 1 auto;min-height:0;overflow:auto}
+
+  /* full clickable XML */
+  .xmlfull{flex:1 1 auto;min-height:0;margin:0;overflow:auto;background:var(--code-bg);padding:14px 12px;
+    font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--code-fg);white-space:pre;tab-size:2}
+  .xmlfull .xnode{cursor:pointer;border-radius:4px;padding:1px 2px}
+  .xmlfull .xnode:hover{background:rgba(127,127,127,.14)}
+  .xmlfull .xnode.sel{background:rgba(74,163,255,.22);box-shadow:inset 0 0 0 1px rgba(74,163,255,.55)}
+  .xmlfull .xnode.linked{background:rgba(224,95,176,.16);box-shadow:inset 0 0 0 1px rgba(224,95,176,.45)}
+  html.light .xmlfull .xnode.sel{background:rgba(9,105,218,.13);box-shadow:inset 0 0 0 1px rgba(9,105,218,.45)}
+  html.light .xmlfull .xnode.linked{background:rgba(194,58,151,.12);box-shadow:inset 0 0 0 1px rgba(194,58,151,.4)}
+
+  /* tree nodes */
+  .node{margin:2px 0}
+  .node .row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;cursor:pointer;
+    border:1px solid transparent}
+  .node .row:hover{background:var(--bg2)}
+  .node .row.sel{background:var(--panel2);border-color:#3d4d70}
+  .node .row.linked{outline:1px dashed var(--ddi);outline-offset:-1px;background:rgba(224,95,176,.08)}
+  .node .exparrow{width:14px;text-align:center;color:var(--muted2);font-size:11px;flex-shrink:0;transition:transform .15s}
+  .node.collapsed > .row .exparrow{transform:rotate(-90deg)}
+  .minichip{font-family:var(--mono);font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:6px;color:var(--chip-fg);flex-shrink:0}
+  .node .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .node .ddibadge{font-family:var(--mono);font-size:11px;color:var(--ddi);background:rgba(224,95,176,.12);
+    border:1px solid rgba(224,95,176,.3);padding:1px 6px;border-radius:20px;flex-shrink:0}
+  .node .dorbadge{font-family:var(--mono);font-size:11px;color:var(--dor);background:rgba(138,151,179,.14);
+    border:1px solid rgba(138,151,179,.35);padding:1px 6px;border-radius:20px;flex-shrink:0}
+  .node .dvpbadge{font-family:var(--mono);font-size:11px;color:var(--dvpc);background:rgba(34,207,224,.12);
+    border:1px solid rgba(34,207,224,.32);padding:1px 6px;border-radius:20px;flex-shrink:0}
+  .node .settable{font-size:10px;color:var(--dpd);border:1px solid rgba(47,214,165,.4);border-radius:20px;padding:0 6px;flex-shrink:0}
+  .children{margin-left:8px;padding-left:6px;border-left:1px solid var(--line)}
+  .tree > .node > .children{margin-left:0;padding-left:0;border-left:0}
+  .node.collapsed > .children{display:none}
+  .leafnote{font-size:11px;color:var(--muted2);margin-left:2px}
+  .node .row.noselect{cursor:default}
+  .node .row.noselect:hover{background:transparent}
+  .node .row.sep{cursor:default;padding:9px 8px 3px}
+  .node .row.sep:hover{background:transparent}
+  .sepnm{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .node .minichip + .minichip{margin-left:4px}
+  .node .nm .minichip{margin-right:4px}
+
+  /* detail panel */
+  .detail{padding:0}
+  .detail .dhead{padding:16px 18px;border-bottom:1px solid var(--line)}
+  .detail .dhead .dtop{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .detail .dhead h3{margin:0;font-size:17px}
+  .detail .dhead .sub{color:var(--muted);font-size:13px;margin-top:4px}
+  .dtabs{display:flex;gap:4px;padding:10px 14px 0}
+  .dtabs button{background:transparent;border:0;border-bottom:2px solid transparent;color:var(--muted);
+    padding:7px 12px;font-size:13px;cursor:pointer;font-family:var(--sans)}
+  .dtabs button.on{color:var(--text);border-bottom-color:var(--det)}
+  .dbody{padding:15px 18px 20px;min-height:220px}
+  .dbody p{margin:8px 0;font-size:13.8px}
+  .dbody .lbl{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted2);font-weight:700;margin:16px 0 6px}
+  .kv{width:100%;border-collapse:collapse;font-size:13px}
+  .kv td{border-top:1px solid var(--line);padding:7px 8px;vertical-align:top}
+  .kv td.xlc{width:1%;padding-right:2px;padding-left:8px}
+  .kv td:nth-child(2){color:var(--muted);white-space:nowrap;width:34%}
+  .kv td:last-child{font-family:var(--mono);font-size:12.5px}
+  .xlk{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text);
+    background:var(--bg2);border:1px solid var(--line);border-radius:5px;padding:0 6px}
+  .linklist{display:flex;flex-direction:column;gap:6px}
+  .linkitem{display:flex;align-items:center;gap:9px;background:var(--bg2);border:1px solid var(--line);
+    border-radius:8px;padding:8px 10px;cursor:pointer;font-size:13px}
+  .linkitem:hover{border-color:var(--muted2)}
+  .linkitem .arrow{color:var(--muted2);font-family:var(--mono);font-size:12px}
+  .empty{color:var(--muted2);font-size:13px;font-style:italic}
+  pre.xml{margin:0;background:var(--code-bg);border:1px solid var(--line);border-radius:10px;padding:14px;
+    overflow:auto;font-family:var(--mono);font-size:12.3px;line-height:1.6;color:var(--code-fg);max-height:420px}
+  .xml .xtag,.xmlfull .xtag{color:var(--xtag)}
+  .xml .xattr,.xmlfull .xattr{color:var(--xattr)}
+  .xml .xval,.xmlfull .xval{color:var(--xval)}
+  .xml .xcomment,.xmlfull .xcomment{color:var(--xcomment);font-style:italic}
+  .hint{font-size:12.5px;color:var(--muted2);margin-top:10px}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px;font-size:12.5px;color:var(--muted)}
+  .legend .li{display:flex;align-items:center;gap:7px}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+  footer{padding:30px 28px 60px;color:var(--muted2);font-size:12.5px;text-align:left;border-top:1px solid var(--line)}
+  footer .footin{max-width:1720px;margin:0 auto}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 7px;border-radius:6px;background:var(--bg2);border:1px solid var(--line);color:var(--muted)}
+</style>
+</head>
+<body>
+
+<button id="themeToggle" class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle light or dark mode">
+  <span class="ts-ico ts-moon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></span>
+  <span class="ts-ico ts-sun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5 5l1.6 1.6M17.4 17.4L19 19M19 5l-1.6 1.6M6.6 17.4L5 19"/></svg></span>
+  <span class="ts-knob"></span>
+</button>
+
+<header class="hero">
+  <div class="kicker">ISO 11783-10 · Annex A / D / F</div>
+  <h1>ISO 11783-10 DDOP Explainer</h1>
+  <p class="sub">Every ISOBUS device tells the Task Controller what it is and what it can do by sending a small
+  bundle of objects — <b>DVC, DET, DPD, DPT, DVP</b> — wired together with <b>DOR</b> references and labelled with
+  <b>DDI</b> codes.</p>
+  <div class="src">Definitions taken from ISO/FDIS 11783-10:2014(E) — Annex A (binary objects), Annex D (XML elements) &amp; Annex F (worked examples).</div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ CHEAT SHEET ============ -->
+<section id="tags">
+  <h2>The tags</h2>
+  <div class="cards" id="cardGrid"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ OBJECT GRAPH (DIAGRAM) ============ -->
+<section id="links">
+  <h2>Object graph</h2>
+  <p class="lead">The pool is a <b>graph</b>, not a flat list. A device owns a tree of parts; each part points to the
+  values it offers; every value names its meaning and, optionally, how to display it.</p>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 820 500" role="img" aria-label="Relationship diagram of DVC, DET, DPD, DPT, DDI and DVP objects">
+      <defs>
+        <marker id="ah" markerWidth="10" markerHeight="10" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+          <path d="M0,0 L7.5,3 L0,6 Z" fill="#8a97b3"/></marker>
+        <marker id="ahPink" markerWidth="10" markerHeight="10" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+          <path d="M0,0 L7.5,3 L0,6 Z" fill="#e05fb0"/></marker>
+        <marker id="ahRose" markerWidth="10" markerHeight="10" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+          <path d="M0,0 L7.5,3 L0,6 Z" fill="#22cfe0"/></marker>
+      </defs>
+
+      <!-- edges (drawn first, under boxes) -->
+      <!-- DVC -> DET -->
+      <path class="dg-edge" d="M410,74 L410,124" stroke="#8a97b3" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+      <text class="dg-elabel on" x="420" y="103" text-anchor="start">contains · one per pool, ID 0</text>
+      <!-- DET self loop (hierarchy) -->
+      <path class="dg-edge" d="M320,138 C272,132 272,174 318,169" stroke="#8a97b3" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+      <text class="dg-elabel" x="262" y="140" text-anchor="end">nests via ParentObjectId</text>
+      <!-- DET -> DPD / DPT -->
+      <path class="dg-edge" d="M372,180 L308,238" stroke="#8a97b3" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+      <path class="dg-edge" d="M448,180 L512,238" stroke="#8a97b3" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+      <text class="dg-elabel on" x="410" y="214" text-anchor="middle">DOR references</text>
+      <!-- DPD/DPT -> DDI (pink, solid) -->
+      <path d="M295,294 L295,370" stroke="#e05fb0" stroke-width="1.7" fill="none" marker-end="url(#ahPink)"/>
+      <path d="M488,294 L322,370" stroke="#e05fb0" stroke-width="1.4" fill="none" opacity="0.8" marker-end="url(#ahPink)"/>
+      <!-- DPD/DPT -> DVP (rose, dashed = optional) -->
+      <path d="M525,294 L525,370" stroke="#22cfe0" stroke-width="1.7" fill="none" stroke-dasharray="5 4" marker-end="url(#ahRose)"/>
+      <path d="M332,294 L498,370" stroke="#22cfe0" stroke-width="1.4" fill="none" opacity="0.8" stroke-dasharray="5 4" marker-end="url(#ahRose)"/>
+
+      <!-- nodes -->
+      <g>
+        <rect x="320" y="20" width="180" height="54" rx="11" fill="#8b7cf6" fill-opacity="0.14" stroke="#8b7cf6" stroke-width="1.6"/>
+        <text class="dg-code" x="410" y="45" text-anchor="middle">&lt;DVC&gt;</text>
+        <text class="dg-role" x="410" y="61" text-anchor="middle">the device — the root</text>
+      </g>
+      <g>
+        <rect x="320" y="124" width="180" height="54" rx="11" fill="#4aa3ff" fill-opacity="0.14" stroke="#4aa3ff" stroke-width="1.6"/>
+        <text class="dg-code" x="410" y="149" text-anchor="middle">&lt;DET&gt;</text>
+        <text class="dg-role" x="410" y="165" text-anchor="middle">a part / element</text>
+      </g>
+      <g>
+        <rect x="210" y="240" width="170" height="54" rx="11" fill="#2fd6a5" fill-opacity="0.14" stroke="#2fd6a5" stroke-width="1.6"/>
+        <text class="dg-code" x="295" y="265" text-anchor="middle">&lt;DPD&gt;</text>
+        <text class="dg-role" x="295" y="281" text-anchor="middle">changing value</text>
+      </g>
+      <g>
+        <rect x="440" y="240" width="170" height="54" rx="11" fill="#f5b13d" fill-opacity="0.14" stroke="#f5b13d" stroke-width="1.6"/>
+        <text class="dg-code" x="525" y="265" text-anchor="middle">&lt;DPT&gt;</text>
+        <text class="dg-role" x="525" y="281" text-anchor="middle">fixed value</text>
+      </g>
+      <g>
+        <rect x="210" y="372" width="170" height="50" rx="11" fill="#e05fb0" fill-opacity="0.14" stroke="#e05fb0" stroke-width="1.6"/>
+        <text class="dg-code" x="295" y="395" text-anchor="middle">DDI</text>
+        <text class="dg-role" x="295" y="411" text-anchor="middle">what the value means</text>
+      </g>
+      <g>
+        <rect x="440" y="372" width="170" height="50" rx="11" fill="#22cfe0" fill-opacity="0.14" stroke="#22cfe0" stroke-width="1.6"/>
+        <text class="dg-code" x="525" y="395" text-anchor="middle">&lt;DVP&gt;</text>
+        <text class="dg-role" x="525" y="411" text-anchor="middle">how to display it</text>
+      </g>
+
+      <text class="dg-elabel" x="410" y="460" text-anchor="middle">One DDI or DVP can be shared by many values.</text>
+    </svg>
+  </div>
+  <div class="legend2">
+    <span class="li2"><span class="ln" style="border-top:3px solid #8a97b3"></span>structural link (contains · DOR)</span>
+    <span class="li2"><span class="ln" style="border-top:3px solid #e05fb0"></span>carries a DDI — meaning (required)</span>
+    <span class="li2"><span class="ln" style="border-top:3px dashed #22cfe0"></span>presented by a DVP (optional, shareable)</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ INTERACTIVE EXPLORER ============ -->
+<section id="explorer">
+  <h2>Interactive explorer</h2>
+  <p class="lead">A 2-section field sprayer, encoded the way the standard specifies.</p>
+  <div class="legend" id="legend"></div>
+  <div class="explorer" style="margin-top:18px">
+    <div class="exp-col">
+      <div class="colhead">
+        <div><div class="h">XML — data transfer file</div></div>
+      </div>
+      <pre class="xmlfull" id="xmlView"></pre>
+    </div>
+    <div class="exp-col">
+      <div class="colhead">
+        <div><div class="h">Object pool tree</div></div>
+      </div>
+      <div class="tree" id="tree"></div>
+    </div>
+    <div class="exp-col detail" id="detailCol">
+      <div class="colhead">
+        <div><div class="h">Inspector</div><div class="sm" id="selHint">Select an object</div></div>
+      </div>
+      <div id="detailArea"></div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="footin">
+  Built as a study aid for ISO/FDIS 11783-10:2014(E). Object attributes and linking rules are drawn from the
+  standard's Annex A, D and F. DDI codes belong to the ISOBUS Data Dictionary (ISO 11783-11); the numbers shown
+  are illustrative examples taken from the standard's own figures. Not a substitute for the official document.
+  </div>
+</footer>
+
+<script>
+/* ---------- TAG CHEAT SHEET DATA ---------- */
+const TAGS = [
+  { id:"DVC", color:"var(--dvc)", name:"Device", bracket:true, one:"The device object — the root of the whole pool",
+    plain:"The <b>DeviceObject</b> represents the entire machine or sensor system. There is exactly one per device descriptor object pool and its Object ID is always 0. It carries the identity of the device (its NAME, software version, serial number) and the <i>structure label</i> the Task Controller uses to tell whether its stored copy of the pool is still up to date.",
+    key:"Exactly <b>one DVC per pool</b>, always <b>Object ID 0</b>. Everything else references back to it.",
+    attrs:[["Table ID","DVC (3-char namespace)"],["Object ID","0 (fixed)"],["Device designator","Human-readable name, max 32 chars"],["Software version","Version text"],["ClientNAME","8-byte NAME from ISO 11783-5"],["Serial number","Device/manufacturer serial"],["Structure label","7 bytes — identifies this pool version"],["Localization label","7 bytes — language & units context"]],
+    extra:`
+      <div class="lvl">Labels &amp; caching</div>
+      <p>The <b>structure label</b> (plus the optional <b>extended structure label</b>) identifies one version of the pool. On connect, the TC compares the label of its cached pool against the device's: if they match it reuses the cache, otherwise it re-requests the whole pool. Any change to the pool must change the label.</p>
+      <p>The <b>localization label</b> carries the language and unit-system context (per ISO 11783-7), so value presentation can follow the operator's settings.</p>
+      <div class="lvl">Two representations</div>
+      <p>The same objects exist in two encodings: the pool is uploaded to the TC as <b>binary</b> objects (Annex A, byte-level tables) and interchanged in the task data file set as <b>XML</b> (Annex D — the form shown in the explorer below).</p>` },
+  { id:"DET", color:"var(--det)", name:"DeviceElement", bracket:true, one:"An addressable part of the device — the tree nodes",
+    plain:"A <b>DeviceElementObject</b> is any addressable item on the device: the whole device, a function, a bin, a section, a unit (e.g. a single nozzle), a connector, or a navigation reference. DETs are chained by their <i>ParentObjectId</i> to build the physical hierarchy. Each DET lists the process data and properties available at that point via DOR references.",
+    key:"DETs build the <b>hierarchy</b> via ParentObjectId. Exactly one DET is type <b>device</b> (element number 0) and is the root.",
+    attrs:[["Table ID","DET"],["Object ID","1–65534, unique"],["DeviceElementType","1=device, 2=function, 3=bin, 4=section, 5=unit, 6=connector, 7=navigation"],["Designator","Name of the element, max 32 chars"],["Element number","0–4095, for process-data addressing"],["ParentObjectId","Object ID of parent DET (or the DVC)"],["Object references","List of DOR → DPD / DPT"]],
+    extra:`
+      <div class="lvl">Element types (attribute C)</div>
+      <table class="attrs">
+        <tr><td>1</td><td><b>device</b> — the whole device; exactly one, element number 0, the root</td></tr>
+        <tr><td>2</td><td><b>function</b> — a generic functional grouping (e.g. liquid application)</td></tr>
+        <tr><td>3</td><td><b>bin</b> — a product bin or tank (e.g. a seeder bin)</td></tr>
+        <tr><td>4</td><td><b>section</b> — a boom/toolbar section; may carry geometry &amp; working width</td></tr>
+        <tr><td>5</td><td><b>unit</b> — the finest addressable level (e.g. a nozzle or row unit)</td></tr>
+        <tr><td>6</td><td><b>connector</b> — a mounting point; carries X/Y offset &amp; connector type</td></tr>
+        <tr><td>7</td><td><b>navigation</b> — navigation reference position (e.g. a GPS receiver)</td></tr>
+      </table>
+      <div class="keyfact"><b>Placement.</b> <i>connector</i> and <i>navigation</i> elements may only sit directly below the root device element.</div>` },
+  { id:"DPD", color:"var(--dpd)", name:"DeviceProcessData", bracket:true, one:"A value that changes during operation",
+    plain:"A <b>DeviceProcessDataObject</b> defines one process data variable — a value that can change while the machine works, such as actual application rate, work state, or a total. It can be marked <i>settable</i> (the TC may command it, e.g. a setpoint) or a <i>control source</i>, and it advertises which measurement <i>trigger methods</i> it supports (time interval, distance, threshold, on-change, total).",
+    key:"DPD = <b>dynamic</b>. It carries a <b>DDI</b> (what it is) and may reference a <b>DVP</b> (how to display). Settable and control-source are mutually exclusive.",
+    attrs:[["Table ID","DPD"],["Object ID","1–65534, unique"],["Process data DDI","The dictionary code — what this value means"],["Properties","bitset: default set / settable / control source"],["Trigger methods","bitset: time / distance / threshold / on-change / total"],["Designator","Name, max 32 chars"],["DVP object ID","Reference to a DeviceValuePresentation (or NULL)"]],
+    extra:`
+      <div class="lvl">Properties (bit field)</div>
+      <table class="attrs">
+        <tr><td>Bit 1</td><td>Member of the <b>default set</b></td></tr>
+        <tr><td>Bit 2</td><td><b>Settable</b> — the TC may command this value (e.g. a setpoint)</td></tr>
+        <tr><td>Bit 3</td><td><b>Control source</b> — this value can drive another control function</td></tr>
+      </table>
+      <div class="keyfact"><b>Rule.</b> Bits 2 and 3 are mutually exclusive — a DPD is settable <i>or</i> a control source, never both.</div>
+      <div class="lvl">Trigger methods (bit field)</div>
+      <table class="attrs">
+        <tr><td>Bit 1</td><td>Time interval</td></tr>
+        <tr><td>Bit 2</td><td>Distance interval</td></tr>
+        <tr><td>Bit 3</td><td>Threshold limits</td></tr>
+        <tr><td>Bit 4</td><td>On change</td></tr>
+        <tr><td>Bit 5</td><td>Total</td></tr>
+      </table>
+      <p>These advertise which measurement triggers the TC is allowed to request for this value.</p>` },
+  { id:"DPT", color:"var(--dpt)", name:"DeviceProperty", bracket:true, one:"A value that stays constant",
+    plain:"A <b>DevicePropertyObject</b> defines one property — a value that does <i>not</i> change during operation, such as a fixed geometric offset or a connector type. Unlike a DPD, it stores the actual value inside the object. Use a DPT when a value is a constant of the device; use a DPD when it can vary.",
+    key:"DPT = <b>fixed</b>. Same DDI + DVP mechanism as DPD, but it holds a stored <b>Property value</b> instead of trigger methods.",
+    attrs:[["Table ID","DPT"],["Object ID","1–65534, unique"],["Property DDI","The dictionary code — what this value means"],["Property value","Signed 32-bit — the actual stored value"],["Designator","Name, max 32 chars"],["DVP object ID","Reference to a DeviceValuePresentation (or NULL)"]] },
+  { id:"DVP", color:"var(--dvpc)", name:"DeviceValuePresentation", bracket:true, one:"Units, scale and decimals for display",
+    plain:"A <b>DeviceValuePresentationObject</b> holds the presentation information used to display a DPD or DPT value to the operator: an <i>offset</i>, a <i>scale</i>, the number of <i>decimals</i>, and a <i>unit designator</i>. Displayed value = (raw value + offset) × scale. The device can update these when the operator changes language or units.",
+    key:"DVP is <b>optional</b> and <b>shared</b>: many DPD/DPT objects can point at the same DVP. It has no children of its own.",
+    attrs:[["Table ID","DVP"],["Object ID","1–65534, unique"],["Offset","Signed 32-bit, added before scaling"],["Scale","Float multiplier"],["Number of decimals","0–7"],["Unit designator","e.g. \"L/ha\", \"m\", \"s\""]],
+    extra:`
+      <div class="lvl">Presentation formula</div>
+      <p><code class="k">displayed = (raw + offset) × scale</code>, rounded to <i>decimals</i> places and shown with the unit designator. The raw integer stays on the wire; the DVP only affects display. The device may rewrite DVP objects when the operator changes language or unit system.</p>` },
+  { id:"DOR", color:"var(--dor)", name:"DeviceObjectReference", bracket:true, one:"A pointer from a DET to a DPD/DPT",
+    plain:"A <b>DeviceObjectReference</b> is not a thing in itself — it is a reference. It lives inside a DeviceElement and points, by Object ID, to a DeviceProcessData or DeviceProperty object. This is the mechanism that says <i>“this part of the machine offers this value.”</i> In XML it looks like <span class=\"pill\">&lt;DOR A=\"3\"/&gt;</span>.",
+    key:"DOR is the <b>glue</b> between a DET and its values. In the binary form it's simply the DET's list of referenced Object IDs.",
+    attrs:[["XML element","DOR, nested inside a DET"],["DeviceObjectId (A)","Object ID of the DPD or DPT being referenced"]] },
+  { id:"DDI", color:"var(--ddi)", name:"Data Dictionary Identifier", bracket:false, one:"A dictionary code for what a value means",
+    plain:"A <b>DDI</b> (Data Dictionary Identifier) is a 2-byte code defined in the ISOBUS Data Dictionary (ISO 11783-11). It is <i>not</i> an object in the pool — it's a label carried by DPD and DPT objects. The DDI is what lets a Task Controller from one manufacturer understand a device from another: 141 always means Actual Work State, 134 always means Offset X, and so on.",
+    key:"DDI is a <b>shared vocabulary</b>, not an object. It answers <i>“what is this value?”</i> — the DPD/DPT answers <i>“and my device supports it, here, like this.”</i>",
+    attrs:[["Defined in","ISO 11783-11 (ISOBUS Data Dictionary)"],["Size","2 bytes (0–65535)"],["Carried by","DeviceProcessData (DPD) and DeviceProperty (DPT)"],["Example: 141","Actual Work State"],["Example: 134 / 135","Device Element Offset X / Y"],["Example: 157","Connector Type"],["Example: 119","Total Time"]] },
+];
+
+/* ---------- render cheat sheet ---------- */
+const grid = document.getElementById('cardGrid');
+TAGS.forEach(t=>{
+  const el = document.createElement('div');
+  el.className='tcard';
+  const attrRows = t.attrs.map(a=>`<tr><td>${a[0]}</td><td>${a[1]}</td></tr>`).join('');
+  const chipLabel = t.bracket ? `&lt;${t.id}&gt;` : t.id;
+  el.innerHTML = `
+    <div class="head">
+      <span class="chip" style="background:${t.color}">${chipLabel}</span>
+      <div class="titles"><div class="xml">${t.name}</div><div class="one">${t.one}</div></div>
+      <span class="caret">▶</span>
+    </div>
+    <div class="body"><div class="body-inner">
+      <p>${t.plain}</p>
+      <div class="keyfact"><b>Key rule.</b> ${t.key}</div>
+      <div class="lvl">Object attributes</div>
+      <table class="attrs">${attrRows}</table>
+      ${t.extra||''}
+    </div></div>`;
+  el.querySelector('.head').addEventListener('click',()=>{
+    const open = el.classList.toggle('open');
+    const body = el.querySelector('.body');
+    body.style.maxHeight = open ? body.querySelector('.body-inner').scrollHeight+40+'px' : '0';
+  });
+  grid.appendChild(el);
+});
+
+/* ============================================================
+   INTERACTIVE OBJECT POOL — a 2-section field sprayer
+   ============================================================ */
+const COL = {DVC:'var(--dvc)',DET:'var(--det)',DPD:'var(--dpd)',DPT:'var(--dpt)',DVP:'var(--dvpc)',DOR:'var(--dor)',DDI:'var(--ddi)'};
+const DETTYPE = {1:'device',2:'function',3:'bin',4:'section',5:'unit',6:'connector',7:'navigation'};
+
+// Flat store of every object, keyed by Object ID
+const OBJ = {
+  0:   {kind:'DVC', id:0, name:'GreenField GF-24 Sprayer',
+        attrs:{'Table ID':'DVC','Object ID':'0','Designator':'GreenField GF-24 Sprayer','Software version':'4.02','ClientNAME':'A0 0C 00 00 12 34 56 78','Serial number':'GF24-2026-00417','Structure label':'…7 bytes…'},
+        desc:'The device itself. Everything below hangs off this single root object (Object ID 0).'},
+
+  // ---- DETs ----
+  100: {kind:'DET', id:100, dtype:1, name:'Sprayer (root device element)', parent:0,
+        dor:[200,201,210,211,202],
+        attrs:{'Table ID':'DET','Object ID':'100','DeviceElementType':'1 = device','Element number':'0','ParentObjectId':'0 (the DVC)'},
+        desc:'The mandatory root device element of type "device". Holds device-wide values: total time, overall work state, the device reference-point offsets and the maximum working width.'},
+  101: {kind:'DET', id:101, dtype:6, name:'Rear hitch connector', parent:100,
+        dor:[210,211,212],
+        attrs:{'Table ID':'DET','Object ID':'101','DeviceElementType':'6 = connector','Element number':'1','ParentObjectId':'100'},
+        desc:'A connector element defining where the implement attaches to the tractor. TC-GEO needs this to know the geometry. Note it reuses the same Offset X / Offset Y properties as the root — one object, referenced twice.'},
+  102: {kind:'DET', id:102, dtype:2, name:'Liquid application', parent:100,
+        dor:[203,204,205,206],
+        attrs:{'Table ID':'DET','Object ID':'102','DeviceElementType':'2 = function','Element number':'2','ParentObjectId':'100'},
+        desc:'A function element grouping the spraying task: the settable setpoint rate, the actual rate, the total volume applied, and the prescription control state.'},
+  103: {kind:'DET', id:103, dtype:4, name:'Section 1', parent:102,
+        dor:[207,213,214],
+        attrs:{'Table ID':'DET','Object ID':'103','DeviceElementType':'4 = section','Element number':'3','ParentObjectId':'102'},
+        desc:'A boom section. Sections can be switched on/off individually and carry their own work state and geometry (working width, offset).'},
+  104: {kind:'DET', id:104, dtype:4, name:'Section 2', parent:102,
+        dor:[207,213,214],
+        attrs:{'Table ID':'DET','Object ID':'104','DeviceElementType':'4 = section','Element number':'4','ParentObjectId':'102'},
+        desc:'A second boom section. It references the very same work-state and geometry objects as Section 1 — a clear example of DPD/DPT objects being shared across multiple DETs.'},
+  105: {kind:'DET', id:105, dtype:5, name:'Nozzle 1', parent:103,
+        dor:[207],
+        attrs:{'Table ID':'DET','Object ID':'105','DeviceElementType':'5 = unit','Element number':'5','ParentObjectId':'103'},
+        desc:'A unit element — the most detailed addressable level, here a single nozzle belonging to Section 1.'},
+
+  // ---- DPD (changing values) ----
+  200: {kind:'DPD', id:200, ddi:119, ddiName:'Total Time', name:'Total Time', settable:false,
+        attrs:{'Table ID':'DPD','Object ID':'200','DDI':'119 (Total Time)','Properties':'total','Trigger methods':'time interval, total','DVP object ID':'300'}, dvp:300,
+        desc:'Accumulated working time for the whole device. A total, requestable at a time interval.'},
+  201: {kind:'DPD', id:201, ddi:141, ddiName:'Actual Work State', name:'Actual Work State', settable:false,
+        attrs:{'Table ID':'DPD','Object ID':'201','DDI':'141 (Actual Work State)','Properties':'default set','Trigger methods':'on change','DVP object ID':'NULL (enumerated)'}, dvp:null,
+        desc:'Whether the device is currently working. Reported on change; no DVP because it is an enumerated state, not a scaled number.'},
+  202: {kind:'DPD', id:202, ddi:70, ddiName:'Maximum Working Width', name:'Maximum Working Width', settable:false,
+        attrs:{'Table ID':'DPD','Object ID':'202','DDI':'70 (Maximum Working Width)','Properties':'default set','Trigger methods':'on change','DVP object ID':'301'}, dvp:301,
+        desc:'The device-level maximum working width, used by the TC to compute worked area.'},
+  203: {kind:'DPD', id:203, ddi:2, ddiName:'Setpoint Application Rate', name:'Setpoint Application Rate', settable:true,
+        attrs:{'Table ID':'DPD','Object ID':'203','DDI':'2 (Setpoint Volume/Area Rate)','Properties':'settable','Trigger methods':'on change','DVP object ID':'302'}, dvp:302,
+        desc:'The commanded application rate. Marked SETTABLE — the Task Controller writes this value to drive rate control from a prescription map.'},
+  204: {kind:'DPD', id:204, ddi:1, ddiName:'Actual Application Rate', name:'Actual Application Rate', settable:false,
+        attrs:{'Table ID':'DPD','Object ID':'204','DDI':'1 (Actual Volume/Area Rate)','Properties':'default set','Trigger methods':'time interval, on change','DVP object ID':'302'}, dvp:302,
+        desc:'The rate the machine is actually applying. Shares DVP 302 (L/ha) with the setpoint above.'},
+  205: {kind:'DPD', id:205, ddi:5, ddiName:'Total Volume', name:'Total Volume', settable:false,
+        attrs:{'Table ID':'DPD','Object ID':'205','DDI':'5 (Total Volume)','Properties':'total','Trigger methods':'total','DVP object ID':'303'}, dvp:303,
+        desc:'Total product volume applied by this function.'},
+  206: {kind:'DPD', id:206, ddi:158, ddiName:'Prescription Control State', name:'Prescription Control State', settable:true,
+        attrs:{'Table ID':'DPD','Object ID':'206','DDI':'158 (Prescription Control State)','Properties':'settable','Trigger methods':'on change','DVP object ID':'NULL'}, dvp:null,
+        desc:'Enables/disables prescription (map-based) control. Settable and reported on change, per the TC-GEO rules.'},
+  207: {kind:'DPD', id:207, ddi:141, ddiName:'Actual Work State', name:'Section Work State', settable:false,
+        attrs:{'Table ID':'DPD','Object ID':'207','DDI':'141 (Actual Work State)','Properties':'default set','Trigger methods':'on change','DVP object ID':'NULL (enumerated)'}, dvp:null,
+        desc:'Per-section work state. Referenced by Section 1, Section 2 AND Nozzle 1 — a single object serving three DETs.'},
+
+  // ---- DPT (fixed values) ----
+  210: {kind:'DPT', id:210, ddi:134, ddiName:'Device Element Offset X', name:'Offset X', value:0,
+        attrs:{'Table ID':'DPT','Object ID':'210','DDI':'134 (Offset X)','Property value':'0','DVP object ID':'301'}, dvp:301,
+        desc:'A fixed X offset from the device reference point. Constant, so it is a property (DPT), not process data. Referenced by both the root device element and the connector.'},
+  211: {kind:'DPT', id:211, ddi:135, ddiName:'Device Element Offset Y', name:'Offset Y', value:0,
+        attrs:{'Table ID':'DPT','Object ID':'211','DDI':'135 (Offset Y)','Property value':'0','DVP object ID':'301'}, dvp:301,
+        desc:'A fixed Y offset. Also shared between the root device element and the connector.'},
+  212: {kind:'DPT', id:212, ddi:157, ddiName:'Connector Type', name:'Connector Type', value:2,
+        attrs:{'Table ID':'DPT','Object ID':'212','DDI':'157 (Connector Type)','Property value':'2 (e.g. rear 3-point hitch)','DVP object ID':'NULL (enumerated)'}, dvp:null,
+        desc:'Which kind of connection this connector is. A constant enumerated property.'},
+  213: {kind:'DPT', id:213, ddi:67, ddiName:'Actual Working Width', name:'Section Working Width', value:6000,
+        attrs:{'Table ID':'DPT','Object ID':'213','DDI':'67 (Working Width)','Property value':'6000','DVP object ID':'301'}, dvp:301,
+        desc:'The working width of a section (6000 mm = 6 m). Fixed for this device, so modelled as a property.'},
+  214: {kind:'DPT', id:214, ddi:134, ddiName:'Device Element Offset X', name:'Section Offset X', value:3000,
+        attrs:{'Table ID':'DPT','Object ID':'214','DDI':'134 (Offset X)','Property value':'3000','DVP object ID':'301'}, dvp:301,
+        desc:'The X offset of a section relative to the device reference point.'},
+
+  // ---- DVP (presentation) ----
+  300: {kind:'DVP', id:300, name:'DVP — hours', unit:'h',
+        attrs:{'Table ID':'DVP','Object ID':'300','Offset':'0','Scale':'0.000277…','Decimals':'1','Unit':'h'},
+        desc:'Presents an accumulated seconds count as hours.'},
+  301: {kind:'DVP', id:301, name:'DVP — metres', unit:'m',
+        attrs:{'Table ID':'DVP','Object ID':'301','Offset':'0','Scale':'0.001','Decimals':'2','Unit':'m'},
+        desc:'Presents a millimetre integer as metres. Reused by every geometry value in this pool — the clearest example of DVP sharing.'},
+  302: {kind:'DVP', id:302, name:'DVP — litres per hectare', unit:'L/ha',
+        attrs:{'Table ID':'DVP','Object ID':'302','Offset':'0','Scale':'0.01','Decimals':'1','Unit':'L/ha'},
+        desc:'Presents a rate value. Shared by both the setpoint and the actual application rate.'},
+  303: {kind:'DVP', id:303, name:'DVP — litres', unit:'L',
+        attrs:{'Table ID':'DVP','Object ID':'303','Offset':'0','Scale':'0.1','Decimals':'1','Unit':'L'},
+        desc:'Presents a total volume in litres.'},
+};
+
+// hierarchy of DETs (by Object ID)
+const DET_TREE = {100:[101,102],102:[103,104],103:[105]};
+
+// reverse index: which DETs reference a given DPD/DPT
+function referencedByDETs(objId){
+  return Object.values(OBJ).filter(o=>o.kind==='DET' && o.dor && o.dor.includes(objId)).map(o=>o.id);
+}
+// which DPD/DPT reference a given DVP
+function usersOfDVP(dvpId){
+  return Object.values(OBJ).filter(o=>(o.kind==='DPD'||o.kind==='DPT') && o.dvp===dvpId).map(o=>o.id);
+}
+
+/* ---------- legend ---------- */
+const legend = document.getElementById('legend');
+[
+  ['DVC','Device','device root'],
+  ['DET','Device Element','addressable part'],
+  ['DPD','Device Process Data','changing value'],
+  ['DPT','Device Property','fixed value'],
+  ['DVP','Device Value Presentation','units & scaling'],
+  ['DOR','Device Object Reference','pointer'],
+  ['DDI','Data Dictionary Identifier','meaning code'],
+].forEach(([k,full,role])=>{
+  const d=document.createElement('div');d.className='li';
+  d.innerHTML=`<span class="dot" style="background:${COL[k]}"></span><span><b>${k}</b> = ${full} <span style="color:var(--muted2)">(${role})</span></span>`;
+  legend.appendChild(d);
+});
+
+/* ---------- render tree ---------- */
+const treeEl = document.getElementById('tree');
+let selected = null;
+
+function chip(kind){return `<span class="minichip" style="background:${COL[kind]}">${kind}</span>`;}
+
+// generic expandable node builder
+function makeNode(rowHTML, childNodes){
+  const node = document.createElement('div'); node.className='node';
+  const has = childNodes && childNodes.length;
+  node.innerHTML = rowHTML;
+  const arrow = node.querySelector('.exparrow');
+  if(has){
+    const wrap = document.createElement('div'); wrap.className='children';
+    childNodes.forEach(c=>wrap.appendChild(c));
+    node.appendChild(wrap);
+    if(arrow) arrow.addEventListener('click',(e)=>{e.stopPropagation();node.classList.toggle('collapsed');});
+  } else if(arrow){ arrow.style.visibility='hidden'; }
+  return node;
+}
+
+// a DOR reference living inside a DET, pointing at a DPD/DPT
+function makeDORNode(targetId){
+  const t = OBJ[targetId];
+  const row = `<div class="row" data-ref="${targetId}">
+      <span class="exparrow"></span>
+      <span class="nm">${chip(t.kind)} ${t.name}</span>
+      <span class="dorbadge" title="DOR reference to Object ID ${targetId}">DOR ${targetId}</span>
+    </div>`;
+  return makeNode(row, null);
+}
+
+// a DDI attribute leaf (not a pool object — display only)
+function makeDDILeaf(o){
+  const row = `<div class="row noselect">
+      <span class="exparrow"></span>
+      ${chip('DDI')}
+      <span class="nm">${o.ddi} — ${o.ddiName}</span>
+    </div>`;
+  return makeNode(row, null);
+}
+
+// a DVP reference leaf inside a DPD/DPT, pointing at a DVP definition
+function makeDVPRefNode(dvpId){
+  const d = OBJ[dvpId];
+  const row = `<div class="row" data-ref="${dvpId}">
+      <span class="exparrow"></span>
+      ${chip('DVP')}
+      <span class="nm">${d.name}</span>
+      <span class="dvpbadge" title="reference to DVP Object ID ${dvpId}">DVP ${dvpId}</span>
+    </div>`;
+  return makeNode(row, null);
+}
+
+// a pool-level DPD/DPT, expanded to show its DDI and DVP reference
+function makeValuePoolNode(objId){
+  const o = OBJ[objId];
+  const settable = o.settable ? `<span class="settable">settable</span>` : '';
+  const row = `<div class="row" data-id="${objId}">
+      <span class="exparrow">▾</span>
+      ${chip(o.kind)}
+      <span class="nm">${o.name}</span>${settable}
+      <span class="ddibadge">DDI ${o.ddi}</span>
+    </div>`;
+  const kids = [ makeDDILeaf(o) ];
+  if(o.dvp) kids.push(makeDVPRefNode(o.dvp));
+  return makeNode(row, kids);
+}
+
+// a pool-level DVP definition
+function makeDVPPoolNode(dvpId){
+  const d = OBJ[dvpId];
+  const row = `<div class="row" data-id="${dvpId}">
+      <span class="exparrow"></span>
+      ${chip('DVP')}
+      <span class="nm">${d.name}</span>
+      <span class="pill" style="flex-shrink:0">${d.unit}</span>
+    </div>`;
+  return makeNode(row, null);
+}
+
+function makeDETNode(detId){
+  const o = OBJ[detId];
+  const kids = DET_TREE[detId]||[];
+  const row = `<div class="row" data-id="${detId}">
+      <span class="exparrow">▾</span>
+      ${chip('DET')}
+      <span class="nm">${o.name}</span>
+      <span class="pill" style="flex-shrink:0">${DETTYPE[o.dtype]}</span>
+    </div>`;
+  const children = [];
+  (o.dor||[]).forEach(vid=> children.push(makeDORNode(vid)) );  // DOR references
+  kids.forEach(k=> children.push(makeDETNode(k)) );             // child DETs
+  return makeNode(row, children);
+}
+
+// separator label row (structural, non-selectable)
+function makeSeparator(text){
+  const node = document.createElement('div'); node.className='node';
+  node.innerHTML = `<div class="row sep"><span class="exparrow"></span><span class="sepnm">${text}</span></div>`;
+  return node;
+}
+
+// assemble: DVC → [DET hierarchy] + [pool objects: DPD, DPT, DVP]
+const DPD_IDS=[200,201,202,203,204,205,206,207];
+const DPT_IDS=[210,211,212,213,214];
+const DVP_IDS=[300,301,302,303];
+const dvcChildNodes = [ makeDETNode(100), makeSeparator('pool objects — referenced above via DOR') ];
+DPD_IDS.forEach(id=>dvcChildNodes.push(makeValuePoolNode(id)));
+DPT_IDS.forEach(id=>dvcChildNodes.push(makeValuePoolNode(id)));
+DVP_IDS.forEach(id=>dvcChildNodes.push(makeDVPPoolNode(id)));
+
+const dvcRow = `<div class="row" data-id="0">
+    <span class="exparrow">▾</span>${chip('DVC')}
+    <span class="nm">${OBJ[0].name}</span>
+    <span class="pill" style="flex-shrink:0">Object ID 0</span></div>`;
+treeEl.appendChild( makeNode(dvcRow, dvcChildNodes) );
+
+/* ---------- selection & inspector ---------- */
+const detailArea = document.getElementById('detailArea');
+const selHint = document.getElementById('selHint');
+const xmlView = document.getElementById('xmlView');
+
+// click in the tree
+treeEl.addEventListener('click',(e)=>{
+  if(e.target.classList.contains('exparrow')) return; // arrow handles its own toggle
+  const row = e.target.closest('.row'); if(!row) return;
+  if(row.classList.contains('sep') || row.classList.contains('noselect')) return;
+  const id = row.dataset.ref!==undefined ? row.dataset.ref : row.dataset.id;
+  if(id!==undefined) select(parseInt(id,10),'tree');
+});
+
+// click in the XML
+xmlView.addEventListener('click',(e)=>{
+  const n = e.target.closest('.xnode'); if(!n) return;
+  const id = n.dataset.ref!==undefined ? n.dataset.ref : n.dataset.id;
+  if(id!==undefined) select(parseInt(id,10),'xml');
+});
+
+// unified selection: highlights tree + xml, opens inspector, scrolls the other panels
+function select(id, source){
+  selected = id;
+  document.querySelectorAll('.tree .row, #xmlView .xnode').forEach(el=>el.classList.remove('sel','linked'));
+  document.querySelectorAll(`.tree .row[data-id="${id}"], #xmlView .xnode[data-id="${id}"]`).forEach(el=>el.classList.add('sel'));
+  document.querySelectorAll(`.tree .row[data-ref="${id}"], #xmlView .xnode[data-ref="${id}"]`).forEach(el=>el.classList.add('linked'));
+  const o = OBJ[id];
+  selHint.textContent = `${o.kind} · Object ID ${o.id}`;
+  renderDetail();
+  const scroll=(el)=>{ if(el && el.scrollIntoView) el.scrollIntoView({block:'nearest'}); };
+  if(source!=='tree') scroll(document.querySelector(`.tree .row[data-id="${id}"]`));
+  if(source!=='xml')  scroll(document.querySelector(`#xmlView .xnode[data-id="${id}"]`));
+}
+// used by inspector link buttons
+function selectObj(id){ select(id, null); }
+
+function linkItem(objId, label){
+  const o=OBJ[objId];
+  return `<div class="linkitem" onclick="selectObj(${objId})">
+    ${chip(o.kind)}<span style="flex:1">${o.name}</span>
+    <span class="arrow">${label} #${objId} →</span></div>`;
+}
+
+// XML attribute letters per object kind (from ISO 11783-10 Annex D), keyed by attribute name
+const XLETTER = {
+  DVC:{'Designator':'B','Software version':'C','ClientNAME':'D','Serial number':'E','Structure label':'F'},
+  DET:{'Object ID':'B','DeviceElementType':'C','Designator':'D','Element number':'E','ParentObjectId':'F'},
+  DPD:{'Object ID':'A','DDI':'B','Properties':'C','Trigger methods':'D','Designator':'E','DVP object ID':'F'},
+  DPT:{'Object ID':'A','DDI':'B','Property value':'C','Designator':'D','DVP object ID':'E'},
+  DVP:{'Object ID':'A','Offset':'B','Scale':'C','Decimals':'D','Unit':'E'},
+};
+
+function renderDetail(){
+  if(selected===null){
+    detailArea.innerHTML = `<div class="dbody"><p class="empty">No object selected.</p></div>`;
+    return;
+  }
+  const o = OBJ[selected];
+
+  // build links section depending on kind
+  let links = '';
+  if(o.kind==='DVC'){
+    links += `<div class="lbl">Owns</div><div class="linklist">${linkItem(100,'root DET')}</div>`;
+  }
+  if(o.kind==='DET'){
+    if(o.parent!==undefined){
+      links += `<div class="lbl">Parent</div><div class="linklist">${linkItem(o.parent, OBJ[o.parent].kind)}</div>`;
+    }
+    const childDets = DET_TREE[o.id]||[];
+    if(childDets.length){
+      links += `<div class="lbl">Child elements</div><div class="linklist">${childDets.map(c=>linkItem(c,'DET')).join('')}</div>`;
+    }
+    if(o.dor&&o.dor.length){
+      links += `<div class="lbl">Values it offers &nbsp;<span style="color:var(--dor)">(via DOR)</span></div><div class="linklist">${o.dor.map(v=>linkItem(v, OBJ[v].kind)).join('')}</div>`;
+    }
+  }
+  if(o.kind==='DPD'||o.kind==='DPT'){
+    const dets = referencedByDETs(o.id);
+    links += `<div class="lbl">Referenced by &nbsp;<span style="color:var(--dor)">(DOR from)</span></div><div class="linklist">${dets.length?dets.map(d=>linkItem(d,'DET')).join(''):'<span class="empty">— none —</span>'}</div>`;
+    links += `<div class="lbl">Meaning</div><div class="linkitem" style="cursor:default;border-color:rgba(224,95,176,.35)">
+        <span class="minichip" style="background:var(--ddi)">DDI</span>
+        <span style="flex:1">${o.ddiName}</span><span class="arrow" style="color:var(--ddi)">code ${o.ddi}</span></div>`;
+    if(o.dvp){
+      links += `<div class="lbl">Displayed via</div><div class="linklist">${linkItem(o.dvp,'DVP')}</div>`;
+    } else {
+      links += `<div class="lbl">Displayed via</div><div class="linklist"><span class="empty">No DVP (enumerated / raw value)</span></div>`;
+    }
+  }
+  if(o.kind==='DVP'){
+    const users = usersOfDVP(o.id);
+    links += `<div class="lbl">Used by</div><div class="linklist">${users.map(u=>linkItem(u,OBJ[u].kind)).join('')}</div>`;
+    links += `<div class="hint">This one presentation object formats <b>${users.length}</b> value object${users.length>1?'s':''} — change it once, every value updates.</div>`;
+  }
+
+  const xl = XLETTER[o.kind]||{};
+  // the designator is a real attribute (shown as the title too); add it for kinds that carry one
+  const entries = Object.entries(o.attrs);
+  if(o.kind==='DET'||o.kind==='DPD'||o.kind==='DPT') entries.push(['Designator', o.name]);
+  const rankOf = k => k==='Table ID' ? '0' : (xl[k]||'Z');
+  entries.sort((a,b)=> rankOf(a[0]) < rankOf(b[0]) ? -1 : rankOf(a[0]) > rankOf(b[0]) ? 1 : 0);
+  const rows = entries.map(([k,v])=>{
+    const L = xl[k] ? `<span class="xlk">${xl[k]}</span>` : '';
+    return `<tr><td class="xlc">${L}</td><td>${k}</td><td>${v}</td></tr>`;
+  }).join('');
+  detailArea.innerHTML = `
+    <div class="dhead">
+      <div class="dtop"><span class="chip" style="background:${COL[o.kind]}">${o.kind}</span>
+        <h3>${o.name}</h3></div>
+      <div class="sub">${o.desc}</div>
+    </div>
+    <div class="dbody">
+      <div class="lbl">Attributes</div>
+      <table class="kv">${rows}</table>
+      ${links}
+    </div>`;
+}
+
+/* ---------- XML view ---------- */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function pad(n){return '  '.repeat(n);}
+function xAttrs(attrs){
+  return Object.entries(attrs).map(([k,v])=>` <span class="xattr">${k}</span>=<span class="xval">"${esc(v)}"</span>`).join('');
+}
+function hexDDI(d){return '0x'+d.toString(16).toUpperCase().padStart(4,'0');}
+// a clickable element line; data = data-id="x" or data-ref="x"
+function xOpen(indent,tag,attrs,data){
+  return `${pad(indent)}<span class="xnode" ${data}><span class="xtag">&lt;${tag}</span>${xAttrs(attrs)}<span class="xtag">&gt;</span></span>`;
+}
+function xSelf(indent,tag,attrs,data,comment){
+  const c = comment ? `  <span class="xcomment">&lt;!-- ${comment} --&gt;</span>` : '';
+  return `${pad(indent)}<span class="xnode" ${data}><span class="xtag">&lt;${tag}</span>${xAttrs(attrs)}<span class="xtag">/&gt;</span></span>${c}`;
+}
+function xClose(indent,tag,data){
+  return `${pad(indent)}<span class="xnode" ${data}><span class="xtag">&lt;/${tag}&gt;</span></span>`;
+}
+
+// build the whole pool as the real data transfer file: DETs are flat under DVC
+// (hierarchy is expressed by ParentObjectId "F"), each DET carries its DOR references,
+// then all DPD/DPT/DVP objects follow at pool level.
+const DET_IDS=[100,101,102,103,104,105];
+function buildFullXml(){
+  const L=[];
+  L.push(`<span class="xcomment">&lt;!-- device descriptor object pool --&gt;</span>`);
+  L.push(xOpen(0,'DVC',{A:'DVC-1',B:OBJ[0].name,C:'4.02',D:'A0 0C 00 00 12 34 56 78',E:'GF24-2026-00417'},'data-id="0"'));
+  DET_IDS.forEach(detId=>{
+    const o=OBJ[detId];
+    L.push(xOpen(1,'DET',{A:'DET'+detId,B:detId,C:o.dtype,D:o.name,E:o.attrs['Element number'],F:o.parent},`data-id="${detId}"`));
+    (o.dor||[]).forEach(vid=> L.push(xSelf(2,'DOR',{A:vid},`data-ref="${vid}"`, '→ '+OBJ[vid].kind+' '+OBJ[vid].name)) );
+    L.push(xClose(1,'DET',`data-id="${detId}"`));
+  });
+  L.push(`  <span class="xcomment">&lt;!-- process data (DPD), properties (DPT) &amp; presentations (DVP) --&gt;</span>`);
+  DPD_IDS.forEach(id=>{const o=OBJ[id];
+    L.push(xSelf(1,'DPD',{A:id,B:hexDDI(o.ddi),C:(o.settable?'settable':'defaultset'),D:'onChange',E:o.name,F:(o.dvp||'')},`data-id="${id}"`));});
+  DPT_IDS.forEach(id=>{const o=OBJ[id];
+    L.push(xSelf(1,'DPT',{A:id,B:hexDDI(o.ddi),C:o.value,D:o.name,E:(o.dvp||'')},`data-id="${id}"`));});
+  DVP_IDS.forEach(id=>{const o=OBJ[id];
+    L.push(xSelf(1,'DVP',{A:id,B:o.attrs.Offset,C:o.attrs.Scale,D:o.attrs.Decimals,E:o.unit},`data-id="${id}"`));});
+  L.push(xClose(0,'DVC','data-id="0"'));
+  return L.join('\n');
+}
+
+/* theme toggle */
+const themeToggle = document.getElementById('themeToggle');
+if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches){
+  document.documentElement.classList.add('light');
+}
+function syncToggleLabel(){
+  themeToggle.setAttribute('aria-checked', document.documentElement.classList.contains('light') ? 'true' : 'false');
+}
+syncToggleLabel();
+themeToggle.addEventListener('click',()=>{ document.documentElement.classList.toggle('light'); syncToggleLabel(); });
+
+/* init */
+xmlView.innerHTML = buildFullXml();
+select(0, null);
+</script>
+</body>
+</html>
