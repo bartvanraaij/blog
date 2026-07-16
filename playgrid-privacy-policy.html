@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Playgrid</title>
+<style>
+  :root {
+    --plum: #A82670;
+    --violet: #5A3DB0;
+    --indigo: #3A4FA8;
+    --teal: #2A8590;
+    --ink: #1C1B22;
+    --ink-soft: #4A4854;
+    --paper: #FCFBFA;
+    --line: #E7E4E9;
+    --gradient: linear-gradient(115deg, var(--plum) 0%, var(--violet) 38%, var(--indigo) 68%, var(--teal) 100%);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .bleed {
+    height: 6px;
+    width: 100%;
+    background: var(--gradient);
+  }
+
+  header {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 32px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 18px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: inline-block;
+  }
+
+  h1 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 5vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0 0 12px;
+  }
+
+  .sub {
+    color: var(--ink-soft);
+    font-size: 17px;
+    margin: 0;
+    max-width: 52ch;
+  }
+
+  .updated {
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .controller {
+    margin-top: 20px;
+    padding: 14px 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    display: inline-block;
+  }
+
+  .controller-label {
+    margin: 0 0 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .controller-line {
+    margin: 0;
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 8px 24px 100px;
+  }
+
+  .callout {
+    border-radius: 16px;
+    padding: 24px 26px;
+    margin: 0 0 48px;
+    background: linear-gradient(180deg, rgba(168,38,112,0.06), rgba(42,133,144,0.06));
+    border: 1px solid var(--line);
+  }
+
+  .callout p {
+    margin: 0;
+    font-size: 17px;
+    color: var(--ink);
+  }
+
+  .callout strong {
+    font-weight: 650;
+  }
+
+  section {
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  section:first-of-type {
+    border-top: none;
+  }
+
+  h2 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    letter-spacing: -0.005em;
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h2 .num {
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--teal);
+    background: rgba(42,133,144,0.1);
+    padding: 4px 9px;
+    border-radius: 6px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  p, li {
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  p + p {
+    margin-top: 12px;
+  }
+
+  ul {
+    margin: 12px 0 0;
+    padding-left: 20px;
+  }
+
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--violet); }
+
+  a {
+    color: var(--indigo);
+    text-decoration: underline;
+    text-decoration-color: rgba(58,79,168,0.35);
+    text-underline-offset: 2px;
+  }
+  a:hover { text-decoration-color: var(--indigo); }
+
+  code {
+    font-family: "Courier New", monospace;
+    font-size: 0.9em;
+    background: rgba(90,61,176,0.08);
+    padding: 2px 6px;
+    border-radius: 5px;
+    color: var(--violet);
+  }
+
+  footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px 64px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  footer .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  footer .mark {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    background: var(--gradient);
+  }
+
+  @media (max-width: 480px) {
+    header { padding: 48px 20px 24px; }
+    main { padding: 8px 20px 80px; }
+    footer { padding: 0 20px 48px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bleed"></div>
+
+<header>
+  <div class="eyebrow">Playgrid</div>
+  <h1>Privacy Policy</h1>
+  <p class="sub">Playgrid is developed by Bart van Raaij, a musician and software developer based in the Netherlands. This policy applies to the Playgrid app.</p>
+  <p class="updated">Last updated July 16, 2026</p>
+  <div class="controller">
+    <p class="controller-label">Data controller</p>
+    <p class="controller-line">Bart van Raaij — <a href="mailto:playgrid@bartvanraaij.nl">playgrid@bartvanraaij.nl</a></p>
+  </div>
+</header>
+
+<main>
+  <div class="callout">
+    <p><strong>Playgrid does not offer user accounts and does not collect any data about the user through the app at any time</strong>, except when the user contacts the developer directly and chooses to share information (see Direct Contact below).</p>
+  </div>
+
+  <section>
+    <h2><span class="num">01</span>No data collected</h2>
+    <p>Playgrid does not offer user accounts and does not collect any data about the user through the app at any time, except when the user contacts the developer directly and chooses to share information. See the Direct Contact section below for further detail.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span>Apple's data collection</h2>
+    <p>Apple and its partners may collect and provide the developer with anonymized information about app usage, including sales reports, crash logs, and other data. This information, as provided to the developer, cannot be used to personally identify the user. User data stored within the app may also be backed up by Apple or its partners and stored on Apple's servers. Apple's policies govern the collection and use of this data; further information is available at <a href="https://www.apple.com/legal/privacy/en-ww/" target="_blank" rel="noopener">apple.com/legal/privacy</a>.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">03</span>iCloud syncing</h2>
+    <p>Playgrid uses Apple's CloudKit to sync content, metadata, and settings between a user's own devices via their iCloud account. Account management, server location, storage and transmission methods, security, and related legal matters are controlled by Apple's policies and terms of service. The developer does not host any of this content and is not responsible for the information the user chooses to sync, including its legality or integrity.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">04</span>Children's privacy</h2>
+    <p>Playgrid does not knowingly collect information from any user, including children, as described in this policy.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">05</span>Direct contact</h2>
+    <p>When the user contacts the developer through email or other direct channels, the developer collects the information provided, which may include the user's name, email address, and message content. This information is used to respond to inquiries and communicate about the app. It is not sold, traded, or otherwise transferred to third parties without the user's consent, except as required by law. Correspondence is retained only as long as needed to address the inquiry, unless a longer period is required by law.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">06</span>Data protection rights (GDPR)</h2>
+    <p>Where the GDPR applies, users have the right to access, correct, or erase their personal data, restrict or object to its processing, request data portability, and withdraw consent at any time. As Playgrid does not collect or retain personal data beyond direct correspondence initiated by the user, these rights apply primarily to that correspondence. Requests can be sent to <a href="mailto:playgrid@bartvanraaij.nl">playgrid@bartvanraaij.nl</a>.</p>
+    <p>Users who believe their data protection rights have been violated may lodge a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens), <a href="https://www.autoriteitpersoonsgegevens.nl" target="_blank" rel="noopener">autoriteitpersoonsgegevens.nl</a>, or with their local supervisory authority.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">07</span>Changes to this policy</h2>
+    <p>This policy may be updated to reflect changes to the app or its data practices. The "last updated" date above reflects the most recent revision.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">08</span>Contact</h2>
+    <p>Questions regarding this policy or Playgrid's data practices may be directed to <a href="mailto:playgrid@bartvanraaij.nl">playgrid@bartvanraaij.nl</a>.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="brand">
+    <span class="mark"></span>
+    <span>Playgrid</span>
+  </div>
+  <span>&copy; 2026 Bart van Raaij.</span>
+</footer>
+
+</body>
+</html>
