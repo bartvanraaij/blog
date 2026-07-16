@@ -7,7 +7,7 @@ I'm a software developer and engineering manager based in the Netherlands.
 
 As Lead Cloud and Web Developer at [AgXeed](https://www.agxeed.com/), a Dutch AgTech company building autonomous agricultural vehicles, I combine hands-on development with leading the Cloud & Web team, focusing on cloud architecture (Azure), integrations (.NET) and solving real-world production problems. Earlier in my career, I worked at Coolblue and Mijnwebwinkel on large-scale e-commerce platforms using PHP (Symfony), AWS and engineering team leadership.
 
-Outside of work I'm a father, musician (electric guitar, trumpet, tuba), DIY enthusiast, runner and Counter-Strike player.
+Outside of work I'm a father, musician (tuba, electric guitar, trumpet), DIY enthusiast, runner and Counter-Strike player.
 
 ### Social
 You can find me at:
